@@ -1,0 +1,36 @@
+*{
+    list-style-type: none;
+    color: black;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+.wrapper{
+    width: 90%;
+    margin: 1rem auto;
+    background-color: #edf5ef;
+    border-radius: 8px;
+    padding: 1rem;
+}
+.headline-wrapper{
+    padding: 1rem 0;
+}
+.span1{
+    font-size:1rem;
+    
+}
+.span2{
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 0 5px;
+}
+.list-item{
+    border-radius: 5px;
+    background-color: #e8eaed;
+    margin: 0.5rem 0;
+    padding: 1rem;
+}
+.span3{
+    font-size: 1rem;
+    font-weight: 600;
+}

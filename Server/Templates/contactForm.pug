@@ -1,0 +1,22 @@
+html
+  head
+    style
+      include ./css/contactForm.css
+  body
+    div(class='container')
+      div(class="wrapper") 
+        div(class="headline-wrapper")
+          span(class="span1") Someone submitted the contact form at
+          span(class="span2") Kings Landing,
+          span(class="span1") take a look :-
+
+        ul(class="list-wrapper")
+          li(class="list-item")
+            span(class='span3')='Name : '
+            span=fullName
+          li(class="list-item")
+            span(class='span3')='Email : '
+            span=email 
+          li(class="list-item")
+            span(class='span3')='Message : '
+            span=message
