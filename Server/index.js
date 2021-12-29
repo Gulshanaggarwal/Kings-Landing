@@ -8,7 +8,8 @@ const contactForm=require("./Api/contactForm");
 const login=require("./Api/login")
 const register=require("./Api/register");
 const verifyRegisterOTP=require("./Api/verifyRegisterOTP");
-const verifyJwt=require("./Api/jwtVerify")
+const verifyJwt=require("./Api/jwtVerify");
+const residencyData=require("./Api/residencyData");
 
 require("dotenv").config();
 
@@ -44,6 +45,7 @@ app.use("/login",login);
 app.use("/register",register);
 app.use("/verify-register-OTP",verifyRegisterOTP);
 app.use("/verifyJwt",verifyJwt);
+app.use("/residencyData",residencyData);
 
 app.get("*",(req,res)=>{
     res.send("Invalid Request!");

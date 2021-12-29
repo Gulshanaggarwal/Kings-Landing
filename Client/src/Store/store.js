@@ -6,6 +6,8 @@ import { SideNavSlice } from "../features/sidenavSlice";
 import { RegisterSlice } from "../features/registerSlice";
 import { registerOTPSlice } from "../features/registerOTPSlice";
 import { registerProcessSlice } from "../features/registerOTPProcessSlice";
+import { residencyDataSlice } from "../features/residencyDataSlice";
+import { bookingSlice } from "../features/bookingSlice";
 
 export const store=configureStore({
     reducer:{
@@ -16,6 +18,8 @@ export const store=configureStore({
         register:RegisterSlice.reducer,
         registerOTP:registerOTPSlice.reducer,
         registerProcessSlice:registerProcessSlice.reducer,
+        residencyDataSlice:residencyDataSlice.reducer,
+        bookingSlice:bookingSlice.reducer
     }
 })
 

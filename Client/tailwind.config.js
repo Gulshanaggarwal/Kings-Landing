@@ -28,7 +28,8 @@ module.exports = {
         width:{
           'sideNavwidth':'150px',
           'verticalLine':'0.5px',
-          'aboutPage':'95%'
+          'aboutPage':'95%',
+          '90P':'90%'
         }
         ,
         height:{
