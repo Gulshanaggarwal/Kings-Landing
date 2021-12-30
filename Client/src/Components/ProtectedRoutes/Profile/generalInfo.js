@@ -1,11 +1,37 @@
-import React,{useState} from 'react'
-
-export default function GeneralInfo({user}) {
-
-    const {fullName,userName}=user;
+import React, { useState } from 'react'
+import { useMutation } from "react-query";
 
 
-    const [fName,setFullName]=useState(fullName);
+const updateInfo = (body) => {
+    return fetch("http://localhost:5000/updateInfo", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(body)
+    }).then((res) => res.json())
+
+}
+
+export default function GeneralInfo({ user }) {
+
+    const { fullName, userName } = user;
+    const [fName, setFullName] = useState(fullName);
+    const [phoneNumber, setPhoneNumber] = useState("");
+    const [homeState, setHomeState] = useState("");
+
+
+    const mutation = useMutation((body) => updateInfo(body));
+
+    const handleUpdateInfo = async (e) => {
+        e.preventDefault();
+
+        if (fName !== fullName) {
+            await mutation.mutate({ fullName: fName, phoneNumber, homeState });
+        }
+
+    }
+
     return (
         <section className="px-8 pt-16 sm:px-16 sm:w-5/6">
             <h2 className="font-medium text-2xl">General information</h2>
@@ -16,22 +42,22 @@ export default function GeneralInfo({user}) {
                 </svg>
                 <div className="flex flex-col my-2">
                     <label className="py-2">Full Name</label>
-                    <input type="text" value={fName}  className="px-2 py-2 rounded-md outline-none border-1 border-gray-500" placeholder="Max 25 characters allowed"/>
+                    <input type="text" value={fName} className="px-2 py-2 rounded-md outline-none border-1 border-gray-500" placeholder="Max 25 characters allowed" onChange={(e) => setFullName(e.target.value.trim())} />
                 </div>
                 <div className="flex flex-col my-2">
                     <label className="py-2">Registered Email</label>
-                    <input type="email" value={userName}  className="px-2 py-2 rounded-md bg-gray-200 outline-none border-1 border-gray-500 cursor-not-allowed" placeholder="" readOnly />
+                    <input type="email" value={userName} className="px-2 py-2 rounded-md bg-gray-200 outline-none border-1 border-gray-500 cursor-not-allowed" placeholder="" readOnly />
                     <p className="text-red-500 py-2 font-Roboto">Email field cannot be changed</p>
                 </div>
                 <div className="flex flex-col my-2">
                     <label className="py-2">Phone Number</label>
-                    <input type="text" className="px-2 py-2 rounded-md outline-none border-1 border-gray-500" placeholder="" />
+                    <input type="text" className="px-2 py-2 rounded-md outline-none border-1 border-gray-500" placeholder="" onChange={(e) => setPhoneNumber(e.target.value.trim())} />
                 </div>
                 <div className="flex flex-col my-2">
-                    <label className="py-2">Your State</label>
-                    <input type="text" className="px-2 py-2 rounded-md outline-none border-1 border-gray-500" placeholder=""/>
+                    <label className="py-2">Home State</label>
+                    <input type="text" className="px-2 py-2 rounded-md outline-none border-1 border-gray-500" placeholder="" onChange={(e) => setHomeState(e.target.value.trim())} />
                 </div>
-                <button className="bg-indigo-500 text-white font-medium rounded-md mt-3 px-4 py-3 shadow-2xl">Update Info</button>
+                <button onClick={handleUpdateInfo} className="bg-indigo-500 text-white font-medium rounded-md mt-3 px-4 py-3 shadow-2xl">Update Info</button>
             </form>
         </section>
     )

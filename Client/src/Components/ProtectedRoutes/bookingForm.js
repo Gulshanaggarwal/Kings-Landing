@@ -21,38 +21,39 @@ export default function BookingForm() {
 
 
     return (
-        <div className="absolute top-0 left-0 w-full h-full">
-            <div className='w-5/6 rounded-md bg-gray-100'>
-                <div>
-                    <h3>Booking Request</h3>
+        <div className="fixed top-0 left-0 w-full h-full py-8 px-12 bg-gray-200 overflow-y-scroll custom-scrollbar">
+            <div>
+                <div className='flex justify-between'>
+                    <h3 className='font-medium text-xl py-3'>Booking Request</h3>
                     <svg xmlns="http://www.w3.org/2000/svg" onClick={() => dispatch(hideBookingForm())} className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                         <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
                     </svg>
                 </div>
-                <form>
-                    <div>
+                <form className='py-4 space-y-4'>
+                    <div className='flex flex-col space-y-2'>
                         <label>Full Name</label>
-                        <input type="text" placeholder="" />
+                        <input className='p-2 rounded-md' type="text" placeholder="" />
                     </div>
-                    <div>
+                    <div className='flex flex-col space-y-2'>
                         <label>Email</label>
-                        <input type="email" placeholder="" />
+                        <input  className='p-2 rounded-md' type="email" placeholder="" />
                     </div>
-                    <div>
+                    <div className='flex flex-col space-y-2'>
                         <label>Phone</label>
-                        <div>
+                        <div className='flex rounded-md bg-white p-2'>
                             <span>+91</span>
-                            <input type="text" placeholder='' />
+                            <input className='w-90P border-gray-500 border-l-2 outline-none mx-1 px-2'  type="text" placeholder='' />
                         </div>
                     </div>
-                    <div>
+                    <div className='flex flex-col space-y-2'>
                         <label>Selected Residency</label>
                         <Select defaultInputValue={residencyName} options={residencyOption} />
                     </div>
-                    <div>
-                        <label>Category</label>
+                    <div className='flex flex-col space-y-2'>
+                        <label>Select Category</label>
                         <Select options={categoryOptions}/>
                     </div>
+                    <button className='py-3 rounded-md text-white font-medium bg-indigo-500 w-full'>Request now</button>
                 </form>
             </div>
         </div>
