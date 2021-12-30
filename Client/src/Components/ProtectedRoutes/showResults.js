@@ -53,13 +53,13 @@ export default function ShowResults() {
                                 ele.residencyType.hostel.length > 0 && <div className='flex align-middle my-2'>
                                     <svg xmlns="http://www.w3.org/2000/svg" className='w-5 h-5' viewBox="0 0 24 24"><path d="M20 9.556V3h-2v2H6V3H4v6.557C2.81 10.25 2 11.526 2 13v4a1 1 0 0 0 1 1h1v4h2v-4h12v4h2v-4h1a1 1 0 0 0 1-1v-4c0-1.474-.811-2.75-2-3.444zM11 9H6V7h5v2zm7 0h-5V7h5v2z"></path></svg>
                                     {
-                                        ele.residencyType.hostel.map((item) => <span className='px-1'>{item.roomType},</span>)
+                                        ele.residencyType.hostel.map((item,index) => <span key={index} className='px-1'>{item.roomType},</span>)
                                     }
                                 </div>
                             }
                             <div className='flex align-middle'>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" className='pr-2' viewBox="0 0 24 24"><path d="M3 2h2v20H3zm16 0H6v20h13c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2zm-1 10H9v-2h9v2zm0-4H9V6h9v2z"></path></svg>
-                                {ele.facility.map((item, index) => index < 3 && <span className='px-1'>{item},</span>)}
+                                {ele.facility.map((item, index) => index < 3 && <span key={index} className='px-1'>{item},</span>)}
                                 <span>+{ele.facility.length}more...</span>
                             </div>
                             <div className="flex justify-between mt-10">
@@ -70,7 +70,7 @@ export default function ShowResults() {
                                         <span className='px-2'>{ele.startingPrice}/month</span>
                                     </div>
                                 </div>
-                                <button type="button" onClick={()=>dispatch(showBookingForm())} className='rounded-md w-32 h-12 bg-indigo-400 text-sm text-white font-medium'>Book now</button>
+                                <button type="button" onClick={()=>dispatch(showBookingForm({data:{residencyName:ele.name,residencyType:ele.residencyType}}))} className='rounded-md w-32 h-12 bg-indigo-400 text-sm text-white font-medium'>Book now</button>
                             </div>
                         </div>
                     </div>

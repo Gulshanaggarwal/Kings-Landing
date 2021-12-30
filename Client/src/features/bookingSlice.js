@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState={
-    bookingForm:false
+    bookingForm:false,
+    data:null
 }
 
 
@@ -10,8 +11,9 @@ export const bookingSlice=createSlice({
     name:"bookingSlice",
     initialState,
     reducers:{
-        showBookingForm:(state)=>{
+        showBookingForm:(state,{payload})=>{
             state.bookingForm=true;
+            state.data=payload.data;
         },
         hideBookingForm:(state)=>{
             state.bookingForm=false;
