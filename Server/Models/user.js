@@ -15,6 +15,14 @@ const userSchema=new mongoose.Schema({
         type:String,
         required:true
     },
+    phoneNumber:{
+        type:String,
+        default:""
+    },
+    homeState:{
+        type:String,
+        default:""
+    }
 });
 
 const userModel= new mongoose.model("user",userSchema);

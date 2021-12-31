@@ -10,6 +10,8 @@ const register=require("./Api/register");
 const verifyRegisterOTP=require("./Api/verifyRegisterOTP");
 const verifyJwt=require("./Api/jwtVerify");
 const residencyData=require("./Api/residencyData");
+const getUpdateInfo=require("./Api/getUpdateInfo");
+const ChangePassword=require("./Api/changePassword");
 
 require("dotenv").config();
 
@@ -46,6 +48,8 @@ app.use("/register",register);
 app.use("/verify-register-OTP",verifyRegisterOTP);
 app.use("/verifyJwt",verifyJwt);
 app.use("/residencyData",residencyData);
+app.use("/getUpdateInfo",getUpdateInfo);
+app.use("/changePassword",ChangePassword);
 
 app.get("*",(req,res)=>{
     res.send("Invalid Request!");

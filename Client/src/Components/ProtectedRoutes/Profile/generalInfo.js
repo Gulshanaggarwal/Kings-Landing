@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
-import { useMutation } from "react-query";
+import React, { useState ,useEffect} from 'react'
+import { useMutation, useQuery , useQueryClient} from "react-query";
 
 
 const updateInfo = (body) => {
-    return fetch("http://localhost:5000/updateInfo", {
+    return fetch("http://localhost:5000/getUpdateInfo", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -20,19 +20,50 @@ export default function GeneralInfo({ user }) {
     const [phoneNumber, setPhoneNumber] = useState("");
     const [homeState, setHomeState] = useState("");
 
+    const queryClient=useQueryClient();
 
-    const mutation = useMutation((body) => updateInfo(body));
+
+    const mutation = useMutation((body) => updateInfo(body),{
+        onSuccess(data){
+            if(data.status==="ok"){
+                queryClient.invalidateQueries('findProfileData');
+            }
+            else{
+                alert("error");
+            }
+
+        },
+        onError(){
+            alert("error");
+        }
+    });
+
+    const {isLoading,data,error}=useQuery("findProfileData",()=>fetch(`http://localhost:5000/getUpdateInfo/${userName}`).then((res)=>res.json()))
+
+
+    useEffect(() => {
+        if(data){
+            const {phoneNumber:ph,homeState:hs}=data.user;
+            setPhoneNumber(ph);
+            setHomeState(hs)
+        }
+    },[data])
+
+    if(isLoading) return <p>Loading....</p>
 
     const handleUpdateInfo = async (e) => {
         e.preventDefault();
 
-        if (fName !== fullName) {
-            await mutation.mutate({ fullName: fName, phoneNumber, homeState });
-        }
-
+        await mutation.mutate({ fullName: fName, phoneNumber, homeState,userName });
+        
     }
 
-    return (
+    console.log('p',phoneNumber);
+
+
+    
+
+    return data && (
         <section className="px-8 pt-16 sm:px-16 sm:w-5/6">
             <h2 className="font-medium text-2xl">General information</h2>
             <p className="font-Roboto pt-2 pb-4">Keep upto date your profile to get latest updates</p>
@@ -42,7 +73,7 @@ export default function GeneralInfo({ user }) {
                 </svg>
                 <div className="flex flex-col my-2">
                     <label className="py-2">Full Name</label>
-                    <input type="text" value={fName} className="px-2 py-2 rounded-md outline-none border-1 border-gray-500" placeholder="Max 25 characters allowed" onChange={(e) => setFullName(e.target.value.trim())} />
+                    <input type="text" value={fName} className="px-2 py-2 rounded-md outline-none border-1 border-gray-500" placeholder="Max 25 characters allowed" onChange={(e) => setFullName(e.target.value)} />
                 </div>
                 <div className="flex flex-col my-2">
                     <label className="py-2">Registered Email</label>
@@ -51,11 +82,11 @@ export default function GeneralInfo({ user }) {
                 </div>
                 <div className="flex flex-col my-2">
                     <label className="py-2">Phone Number</label>
-                    <input type="text" className="px-2 py-2 rounded-md outline-none border-1 border-gray-500" placeholder="" onChange={(e) => setPhoneNumber(e.target.value.trim())} />
+                    <input type="text" value={phoneNumber}  className="px-2 py-2 rounded-md outline-none border-1 border-gray-500" placeholder="h" onChange={(e) => setPhoneNumber(e.target.value.trim())} />
                 </div>
                 <div className="flex flex-col my-2">
                     <label className="py-2">Home State</label>
-                    <input type="text" className="px-2 py-2 rounded-md outline-none border-1 border-gray-500" placeholder="" onChange={(e) => setHomeState(e.target.value.trim())} />
+                    <input type="text" value={homeState}  className="px-2 py-2 rounded-md outline-none border-1 border-gray-500" placeholder="h" onChange={(e) => setHomeState(e.target.value.trim())} />
                 </div>
                 <button onClick={handleUpdateInfo} className="bg-indigo-500 text-white font-medium rounded-md mt-3 px-4 py-3 shadow-2xl">Update Info</button>
             </form>
