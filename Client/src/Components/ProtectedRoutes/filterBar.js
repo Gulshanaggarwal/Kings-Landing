@@ -3,27 +3,35 @@ import Select from "react-select"
 
 const locationsOptions = [
     {
-        label: "Jawahar Nagar",
-        value: "Jawahar Nagar"
+        label: "Kunadi(Landmark City)",
+        value: "Kunadi"
     },
     {
         label: "Talwandi",
         value: "Talwandi"
+    },
+    {
+        label:"Rajiv Gandhi Nagar",
+        value:"Rajiv Gandhi Nagar"
+    },
+    {
+        label:"Indira Vihar",
+        value:"Indira Vihar"
     }
 ]
 
 const prices = [
     {
-        label: "4000",
-        value: 4000
+        label: "Upto 8000",
+        value: 8000
     },
     {
-        label: "5000",
-        value: 5000
+        label: "Upto 10000",
+        value: 10000
     },
     {
-        label: "6000",
-        value: 6000
+        label: "Upto 14000",
+        value: 14000
     }
 ]
 
@@ -55,7 +63,7 @@ export default function FilterBar() {
                         <Select options={locationsOptions} onChange={handleLocations} />
                     </div>
                     <div>
-                        <label className='py-2 block text-white'>Price</label>
+                        <label className='py-2 block text-white'>Price (in Ruppee)</label>
                         <Select options={prices} onChange={handlePrices} />
                     </div>
                 </div>

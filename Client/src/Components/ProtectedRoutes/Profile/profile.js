@@ -15,12 +15,12 @@ export default function Profile() {
     if(error){
         navigate("/");
     }
-    console.log(data);
+    console.log("d",data);
     return data && data.user && (
         <div>
             <ProtectedPageHeader/>
-            <GeneralInfo user={data.user}/>
-            <ChangePassword/>
+            <GeneralInfo fullName={data.user.fullName} userName={data.user.userName}/>
+            <ChangePassword userName={data.user.userName}/>
             <Footer/>
         </div>
     )

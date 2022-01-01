@@ -12,7 +12,7 @@ const changePassQuery=(body)=>{
     }).then((res) => res.json())
 }
 
-export default function ChangePassword() {
+export default function ChangePassword({userName}) {
 
     const [oldPassword,setOldPassword]=useState("");
     const [newPassword,setNewPassword]=useState("");
@@ -38,7 +38,7 @@ export default function ChangePassword() {
         e.preventDefault();
 
         if(newPassword===confirmNewpass){
-            await mutation.mutate({oldPassword,newPassword});
+            await mutation.mutate({userName, oldPassword,newPassword});
         }
         else{
             alert("Password and confirm password must match!");

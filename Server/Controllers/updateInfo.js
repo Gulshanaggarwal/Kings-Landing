@@ -6,7 +6,6 @@ const {validationResult}=require("express-validator");
 const updateInfo = async (req, res) => {
 
     const { userName, fullName, phoneNumber, homeState } = req.body;
-    console.log(req.body);
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

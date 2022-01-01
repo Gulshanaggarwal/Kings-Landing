@@ -13,9 +13,8 @@ const updateInfo = (body) => {
 
 }
 
-export default function GeneralInfo({ user }) {
+export default function GeneralInfo({fullName, userName }) {
 
-    const { fullName, userName } = user;
     const [fName, setFullName] = useState(fullName);
     const [phoneNumber, setPhoneNumber] = useState("");
     const [homeState, setHomeState] = useState("");
@@ -40,7 +39,6 @@ export default function GeneralInfo({ user }) {
 
     const {isLoading,data,error}=useQuery("findProfileData",()=>fetch(`http://localhost:5000/getUpdateInfo/${userName}`).then((res)=>res.json()))
 
-
     useEffect(() => {
         if(data){
             const {phoneNumber:ph,homeState:hs}=data.user;
@@ -57,8 +55,6 @@ export default function GeneralInfo({ user }) {
         await mutation.mutate({ fullName: fName, phoneNumber, homeState,userName });
         
     }
-
-    console.log('p',phoneNumber);
 
 
     
@@ -78,15 +74,15 @@ export default function GeneralInfo({ user }) {
                 <div className="flex flex-col my-2">
                     <label className="py-2">Registered Email</label>
                     <input type="email" value={userName} className="px-2 py-2 rounded-md bg-gray-200 outline-none border-1 border-gray-500 cursor-not-allowed" placeholder="" readOnly />
-                    <p className="text-red-500 py-2 font-Roboto">Email field cannot be changed</p>
+                    <p className="text-red-500 py-2 font-Roboto"> Note: Registered Email cannot be changed</p>
                 </div>
                 <div className="flex flex-col my-2">
                     <label className="py-2">Phone Number</label>
-                    <input type="text" value={phoneNumber}  className="px-2 py-2 rounded-md outline-none border-1 border-gray-500" placeholder="h" onChange={(e) => setPhoneNumber(e.target.value.trim())} />
+                    <input type="text" value={phoneNumber}  className="px-2 py-2 rounded-md outline-none border-1 border-gray-500" placeholder="" onChange={(e) => setPhoneNumber(e.target.value.trim())} />
                 </div>
                 <div className="flex flex-col my-2">
                     <label className="py-2">Home State</label>
-                    <input type="text" value={homeState}  className="px-2 py-2 rounded-md outline-none border-1 border-gray-500" placeholder="h" onChange={(e) => setHomeState(e.target.value.trim())} />
+                    <input type="text" value={homeState}  className="px-2 py-2 rounded-md outline-none border-1 border-gray-500" placeholder="" onChange={(e) => setHomeState(e.target.value.trim())} />
                 </div>
                 <button onClick={handleUpdateInfo} className="bg-indigo-500 text-white font-medium rounded-md mt-3 px-4 py-3 shadow-2xl">Update Info</button>
             </form>
