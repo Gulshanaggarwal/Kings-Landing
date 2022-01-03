@@ -15,8 +15,8 @@ const locationsOptions = [
         value:"Rajiv Gandhi Nagar"
     },
     {
-        label:"Indira Vihar",
-        value:"Indira Vihar"
+        label:"Indra Vihar",
+        value:"Indra Vihar"
     }
 ]
 
@@ -44,6 +44,11 @@ export default function FilterBar() {
     const [location, setLocation] = useState(null);
     const [price, setPrice] = useState(null);
 
+    const defaultPrice={
+        label:"Coming Soon..",
+        value:"Coming Soon"
+    }
+
    
     const handleLocations = (value) => {
         setLocation(value);
@@ -63,8 +68,8 @@ export default function FilterBar() {
                         <Select options={locationsOptions} onChange={handleLocations} />
                     </div>
                     <div>
-                        <label className='py-2 block text-white'>Price (in Ruppee)</label>
-                        <Select options={prices} onChange={handlePrices} />
+                        <label className='py-2 block text-white'>Pricing (in Ruppee)</label>
+                        <div className="cursor-not-allowed"><Select value={defaultPrice}  /></div>
                     </div>
                 </div>
                 <button className="bg-indigo-500 text-white font-medium rounded-lg w-5/6 mx-auto block my-4 py-2">Search</button>
