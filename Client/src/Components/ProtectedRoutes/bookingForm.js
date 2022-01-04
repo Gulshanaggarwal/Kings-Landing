@@ -1,9 +1,14 @@
-import React from 'react';
+import React,{useState} from 'react';
 import Select from "react-select";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { hideBookingForm } from '../../features/bookingSlice';
 
 export default function BookingForm() {
+
+
+    const [fullName,setFullName]=useState("");
+    const [phoneNumber,setPhoneNumber]=useState("");
+    
 
     const { residencyName, residencyType } = useSelector((state) => state.bookingSlice.data, shallowEqual);
     const dispatch = useDispatch();
@@ -14,7 +19,7 @@ export default function BookingForm() {
     }]
 
     const availResidency=residencyType.hostel.length>0 ? residencyType.hostel : residencyType.flat;
-    let categoryOptions=[]
+    let categoryOptions=[];
     availResidency.forEach((ele)=>{
         categoryOptions.push({label:ele.roomType,value:ele.roomType});
     })
@@ -35,10 +40,6 @@ export default function BookingForm() {
                         <input className='p-2 rounded-md' type="text" placeholder="" />
                     </div>
                     <div className='flex flex-col space-y-2'>
-                        <label>Email</label>
-                        <input  className='p-2 rounded-md' type="email" placeholder="" />
-                    </div>
-                    <div className='flex flex-col space-y-2'>
                         <label>Phone</label>
                         <div className='flex rounded-md bg-white p-2'>
                             <span>+91</span>
@@ -51,7 +52,7 @@ export default function BookingForm() {
                     </div>
                     <div className='flex flex-col space-y-2'>
                         <label>Select Category</label>
-                        <Select options={categoryOptions}/>
+                        <Select defaultInputValue={categoryOptions[0].value} options={categoryOptions}/>
                     </div>
                     <button className='py-3 rounded-md text-white font-medium bg-indigo-500 w-full'>Request now</button>
                 </form>

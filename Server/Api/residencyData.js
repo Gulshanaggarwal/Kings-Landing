@@ -6,11 +6,15 @@ let residencyData=[];
 
 
 
-router.get("/",async(req,res)=>{
+router.get("/:location",async(req,res)=>{
 
-    if(Object.keys(req.body).length===0){
+
+    const {location}=req.params;
+
+    if(location!=="null"){
         try{
-            let residencyData=await residencyModel.find().exec();
+            let residencyData=await residencyModel.find({area:location}).exec();
+            console.log("res",residencyData.length);
             res.json({status:"ok",message:"success",data:residencyData})
         }
         catch{
@@ -18,7 +22,14 @@ router.get("/",async(req,res)=>{
         }
     }
     else{
-        res.json({status:"error",message:"server error"})
+        try{
+            let residencyData=await residencyModel.find().exec();
+            res.json({status:"ok",message:"success",data:residencyData})
+        }
+        catch{
+           res.json({status:"error",message:"server error"})
+        }
+        
     }
     
 })

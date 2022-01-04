@@ -12,10 +12,12 @@ export default function Profile() {
     const {isLoading,data,error}=useVerifyJwt();
 
     if(isLoading) return <p className="font-medium text-center textt-xl">Loading....</p>
+    if(data && data.status==="error"){
+        navigate("/");
+    }
     if(error){
         navigate("/");
     }
-    console.log("d",data);
     return data && data.user && (
         <div>
             <ProtectedPageHeader/>

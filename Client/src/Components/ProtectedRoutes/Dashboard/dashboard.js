@@ -6,18 +6,28 @@ import BookingForm from '../bookingForm';
 import FilterBar from '../filterBar';
 import ShowResults from '../showResults';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 export default function Dashboard() {
 
 
     const bookingForm=useSelector(state=>state.bookingSlice.bookingForm);
     const {isLoading,data,error}=useVerifyJwt();
+    const navigate=useNavigate("");
     if(isLoading) return <h1>Loading....</h1>
+
+    if(data && data.status==="error"){
+        navigate("/");
+    }
+    if(error){
+        navigate("/");
+    }
     return (
         <div>
             <ProtectedPageHeader/>
             <FilterBar/>
             <ShowResults/>
+            <Footer/>
             {bookingForm && <BookingForm/>}
         </div>
     )

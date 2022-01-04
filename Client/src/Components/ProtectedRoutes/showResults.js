@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { useQuery } from "react-query";
+import React, { useEffect,useState,useLayoutEffect } from 'react'
+import { useQuery,useQueryClient } from "react-query";
 import { useDispatch, useSelector, shallowEqual } from "react-redux"
 import { setResidencyData } from '../../features/residencyDataSlice';
 import rupeeIcon from "../../Images/rupee-indian.png";
@@ -7,18 +7,24 @@ import { showBookingForm } from "../../features/bookingSlice"
 
 
 export default function ShowResults() {
+
+
+
     const dispatch = useDispatch();
-    const residency = useSelector(state => state.residencyDataSlice.residency, shallowEqual);
-    const { isLoading, data: residencies, error } = useQuery("residency", () => fetch("http://localhost:5000/residencyData").then((res) => res.json()));
+   const location=useSelector(state=>state.filterBarSlice.location);
+   let residency=[];
 
-    useEffect(() => {
-        if (residencies) {
-            dispatch(setResidencyData({ data: residencies.data }))
-
-        }
-    }, [residencies])
+ 
+   
+    const { isLoading, data, error } = useQuery(["residency",location], () => fetch(`http://localhost:5000/residencyData/${location}`).then((res) => res.json()));
+    
 
     if (isLoading) return <h2>Loading ....</h2>
+    if(data){
+        residency=[...data.data]
+    }
+
+
 
     return (
         <main>
@@ -32,7 +38,7 @@ export default function ShowResults() {
             {residency.length > 0 && residency.map((ele) => {
                 console.log(ele.images[0].url);
                 return (
-                    <div className='w-90P mx-auto my-8 border-1 border-gray-600 rounded-md bg-gray-100' key={ele._id}>
+                    <div className='w-90P mx-auto my-12 border-1 border-gray-600 rounded-md bg-gray-100' key={ele._id}>
                         <div className="w-full h-64">
                             <img src={ele.images[0].url} className='w-full h-full rounded-md' alt={ele.images[0].description} />
                         </div>
