@@ -1,14 +1,9 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import Select from "react-select";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { hideBookingForm } from '../../features/bookingSlice';
 
 export default function BookingForm() {
-
-
-    const [fullName,setFullName]=useState("");
-    const [phoneNumber,setPhoneNumber]=useState("");
-    
 
     const { residencyName, residencyType } = useSelector((state) => state.bookingSlice.data, shallowEqual);
     const dispatch = useDispatch();
@@ -18,11 +13,18 @@ export default function BookingForm() {
         value: residencyName
     }]
 
-    const availResidency=residencyType.hostel.length>0 ? residencyType.hostel : residencyType.flat;
-    let categoryOptions=[];
-    availResidency.forEach((ele)=>{
-        categoryOptions.push({label:ele.roomType,value:ele.roomType});
+    const availResidency = residencyType.hostel.length > 0 ? residencyType.hostel : residencyType.flat;
+    let categoryOptions = [];
+    availResidency.forEach((ele) => {
+        categoryOptions.push({ label: ele.roomType, value: ele.roomType });
     })
+
+
+    // controlled input fields
+    const [fName, setFName] = useState("");
+    const [phNumber, setPhNumber] = useState("");
+    const [currResidency, setCurrResidency] = useState(residencyName);
+    const [selectCategory, setSelectCategory] = useState(categoryOptions[0].value);
 
 
     return (
@@ -37,24 +39,24 @@ export default function BookingForm() {
                 <form className='py-4 space-y-4'>
                     <div className='flex flex-col space-y-2'>
                         <label>Full Name</label>
-                        <input className='p-2 rounded-md' type="text" placeholder="" />
+                        <input className='p-2 rounded-md' type="text" placeholder="" onChange={(e) => setFName(e.target.value.trim())} />
                     </div>
                     <div className='flex flex-col space-y-2'>
                         <label>Phone</label>
                         <div className='flex rounded-md bg-white p-2'>
                             <span>+91</span>
-                            <input className='w-90P border-gray-500 border-l-2 outline-none mx-1 px-2'  type="text" placeholder='' />
+                            <input className='w-90P border-gray-500 border-l-2 outline-none mx-1 px-2' type="text" placeholder='' onChange={(e) => setPhNumber(e.target.value.trim())} />
                         </div>
                     </div>
                     <div className='flex flex-col space-y-2'>
                         <label>Selected Residency</label>
-                        <Select defaultInputValue={residencyName} options={residencyOption} />
+                        <Select defaultInputValue={residencyName} options={residencyOption} onChange={(ele) => setCurrResidency(ele.value)} />
                     </div>
                     <div className='flex flex-col space-y-2'>
                         <label>Select Category</label>
-                        <Select defaultInputValue={categoryOptions[0].value} options={categoryOptions}/>
+                        <Select defaultInputValue={categoryOptions[0].value} options={categoryOptions} onChange={(ele) => setSelectCategory(ele.value)} />
                     </div>
-                    <button className='py-3 rounded-md text-white font-medium bg-indigo-500 w-full'>Request now</button>
+                    <button type="button" className='py-3 rounded-md text-white font-medium bg-indigo-500 w-full'>Request now</button>
                 </form>
             </div>
         </div>

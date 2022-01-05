@@ -1,0 +1,14 @@
+html
+    head
+        style
+            include ./css/bookingTemplate.css
+    body
+        div
+            h2 Kings Landing 
+            div
+                p Booking Request raised, take a look:-
+                ul
+                    li
+                        span userName
+                        span value
+
