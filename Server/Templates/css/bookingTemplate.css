@@ -1,0 +1,42 @@
+*{
+    margin:0;
+    padding: 0;
+    list-style-type: none;
+    color: black;
+}
+
+.container{
+    width: 90%;
+    margin:1rem auto;
+    background-color: #edf5ef;
+    border-radius: 8px;
+    padding: 1rem;
+}
+.logo{
+    text-align: center;
+    font-size: 1.5rem;
+    padding: 1rem 0;
+}
+
+.para{
+    padding: 0.5rem;
+    font-size: 0.8rem;
+}
+ul{
+    width: 90%;
+    margin:1rem auto;
+}
+ul li{
+    padding: 1rem;
+    background-color: #e8eaed;
+    margin: 0.5rem 0;
+    border-radius: 5px;
+}
+.attri{
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: black;
+}
+.val{
+    font-size: 0.8rem;
+}

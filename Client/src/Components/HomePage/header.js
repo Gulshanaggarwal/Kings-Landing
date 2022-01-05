@@ -12,7 +12,7 @@ export default function Header() {
   return (
     <main className="bg-main-image bg-no-repeat bg-cover h-screen text-white">
       <header>
-        <div className="flex justify-between items-center py-2">
+        <div className="flex justify-between items-center p-4">
           <Logo/>
           <div
             className="mx-4 cursor-pointer md:hidden"

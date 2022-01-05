@@ -23,12 +23,12 @@ export default function Dashboard() {
         navigate("/");
     }
     return (
-        <div>
+        <div className='bg-gray-100'>
             <ProtectedPageHeader/>
             <FilterBar/>
             <ShowResults/>
             <Footer/>
-            {bookingForm && <BookingForm/>}
+            {bookingForm && <BookingForm userName={data.user.userName}/>}
         </div>
     )
 }

@@ -37,7 +37,7 @@ export default function FilterBar() {
 
     return (
         <React.Fragment>
-            <section className="bg-bgHostel py-8 bg-cover bg-no-repeat">
+            <section className="relative z-49 bg-bgHostel py-8 bg-cover bg-no-repeat">
                 <div className="grid sm:grid-cols-2 w-5/6 mx-auto gap-x-4">
                     <div>
                         <label className="py-2 block text-white">Locations in Kota</label>

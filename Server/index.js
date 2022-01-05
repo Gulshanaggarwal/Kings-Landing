@@ -12,6 +12,7 @@ const verifyJwt=require("./Api/jwtVerify");
 const residencyData=require("./Api/residencyData");
 const getUpdateInfo=require("./Api/getUpdateInfo");
 const ChangePassword=require("./Api/changePassword");
+const bookingRequest=require("./Api/bookingRequest");
 
 require("dotenv").config();
 
@@ -50,6 +51,7 @@ app.use("/verifyJwt",verifyJwt);
 app.use("/residencyData",residencyData);
 app.use("/getUpdateInfo",getUpdateInfo);
 app.use("/changePassword",ChangePassword);
+app.use("/book-request",bookingRequest)
 
 app.get("*",(req,res)=>{
     res.send("Invalid Request!");

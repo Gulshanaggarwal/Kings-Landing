@@ -7,19 +7,19 @@ import GeneralInfo from './generalInfo'
 import { useNavigate } from 'react-router-dom'
 
 export default function Profile() {
-    const navigate=useNavigate("/");
-
+    
     const {isLoading,data,error}=useVerifyJwt();
+    const navigate=useNavigate("");
 
-    if(isLoading) return <p className="font-medium text-center textt-xl">Loading....</p>
+    if(isLoading) return <p>Loading....</p>
     if(data && data.status==="error"){
         navigate("/");
     }
     if(error){
         navigate("/");
     }
-    return data && data.user && (
-        <div>
+    return data && data.status==="ok" &&(
+        <div className='bg-gray-100'>
             <ProtectedPageHeader/>
             <GeneralInfo fullName={data.user.fullName} userName={data.user.userName}/>
             <ChangePassword userName={data.user.userName}/>

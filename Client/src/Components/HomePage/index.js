@@ -16,13 +16,23 @@ import Login from "../LoginRegister/login";
 import Register from "../LoginRegister/Register/register"
 import RegisterOTP from "../LoginRegister/Register/registerOTP";
 import { useSelector } from "react-redux";
+import useVerifyJwt from "../../Hooks/verifyJwt";
+import { useNavigate } from "react-router-dom";
 
 export default function HomePage() {
 
   const isLoginWindow = useSelector((state) => state.login.LoginWindow);
   const isSideNav = useSelector((state) => state.sidenavbar.sideNav);
-  const isRegisterWindow=useSelector((state)=>state.register.registerWindow);
-  const isregisterOTPWindow=useSelector((state)=>state.registerOTP.registerOTPWindow)
+  const isRegisterWindow = useSelector((state) => state.register.registerWindow);
+  const isregisterOTPWindow = useSelector((state) => state.registerOTP.registerOTPWindow)
+
+  const { isLoading, data, error } = useVerifyJwt();
+  const navigate = useNavigate("");
+  if (isLoading) return <h1>Loading....</h1>
+
+  if (data && data.status === "ok") {
+    navigate("/dashboard");
+  }
 
   return (
     <div className="bg-gray-200 overflow-x-hidden">
@@ -37,8 +47,8 @@ export default function HomePage() {
       {isSideNav && (<SideNav />)}
       <GalleryPreview />
       {isLoginWindow && (<Login />)}
-      {isRegisterWindow && (<Register/>)}
-      {isregisterOTPWindow && (<RegisterOTP/>)}
+      {isRegisterWindow && (<Register />)}
+      {isregisterOTPWindow && (<RegisterOTP />)}
       <Loader />
       <Notification />
       <ScrollTop />

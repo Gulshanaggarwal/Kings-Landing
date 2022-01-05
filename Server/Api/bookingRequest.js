@@ -10,12 +10,13 @@ router.post("/",
     body('userName').isEmail().normalizeEmail(),
     body('fullName').not().isEmpty().escape().isLength({ min: 1, max: 25 }),
     body('phoneNumber').not().isEmpty().escape().isLength({ min: 10, max: 10 }),
-    body('residency').not().isEmpty().escape().isLength({ min: 1, max: 15 }),
+    body('residencyId').not().isEmpty().escape().isLength({ min: 24, max: 24 }),
+    body('residency').not().isEmpty().escape().isLength({ min: 1, max: 30 }),
     body("category").not().isEmpty().escape().isLength({ min: 1, max: 15 }),
     async (req, res) => {
 
 
-        const { userName, fullName, phoneNumber, residency, category } = req.body;
+        const { userName, fullName, phoneNumber, residencyId, residency, category } = req.body;
 
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -23,24 +24,24 @@ router.post("/",
         }
 
         try {
-            await userModel.findOne({userName}).exec();
+            await userModel.findOne({ userName }).exec();
             // Now send email request to company 
 
-            const bookingTemplate= pug.compileFile("Templates/bookingTemplate.pug");
+            const bookingTemplate = pug.compileFile("Templates/bookingTemplate.pug");
 
-            const mailOptions={
+            const mailOptions = {
                 from: process.env.COMPANY_EMAIL,
                 to: userName,
                 subject: "Booking Request",
-                html:bookingTemplate({ userName, fullName, phoneNumber, residency, category })
-                
+                html: bookingTemplate({ userName, fullName, phoneNumber, residencyId, residency, category })
+
             }
 
-            transporter.sendMail(mailOptions,(err)=>{
-                if(err){
-                    res.status(500).json({status:"error",message:"Server Error!"})
+            transporter.sendMail(mailOptions, (err) => {
+                if (err) {
+                    res.status(500).json({ status: "error", message: "Server Error!" })
                 }
-                res.status(200).json({status:"ok",message:"Request received successfully!"})
+                res.status(200).json({ status: "ok", message: "Request received successfully!" })
             })
 
 
@@ -48,9 +49,13 @@ router.post("/",
 
         } catch (error) {
 
-            res.status(500).json({status:"error",message:"Server Error!"})
-            
+
+            res.status(500).json({ status: "error", message: "Server Error!" })
+
         }
 
 
     })
+
+
+module.exports = router;

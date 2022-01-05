@@ -81,7 +81,7 @@ export default function ShowResults() {
                                         <span className='px-2'>{ele.startingPrice}/month</span>
                                     </div>
                                 </div>
-                                <button type="button" onClick={() => dispatch(showBookingForm({ data: { residencyName: ele.name, residencyType: ele.residencyType } }))} className='rounded-md w-32 h-12 bg-indigo-400 text-sm text-white font-medium'>Book now</button>
+                                <button type="button" onClick={() => dispatch(showBookingForm({ data: {residencyId:ele._id, residencyName: ele.name, residencyType: ele.residencyType } }))} className='rounded-md w-32 h-12 bg-indigo-400 text-sm text-white font-medium'>Book now</button>
                             </div>
                         </div>
                     </div>
