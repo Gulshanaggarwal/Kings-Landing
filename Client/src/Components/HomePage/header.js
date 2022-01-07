@@ -12,17 +12,17 @@ export default function Header() {
   return (
     <main className="bg-main-image bg-no-repeat bg-cover h-screen text-white">
       <header>
-        <div className="flex justify-between items-center p-4">
+        <div className="flex justify-between items-center py-4 px-2">
           <Logo/>
           <div
-            className="mx-4 cursor-pointer md:hidden"
+            className="mx-2 cursor-pointer md:hidden"
             onClick={() => {
               dispatch(showSideNav())
             }}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-7 w-7 HomePageAfter330px:h-6"
+              className="h-5 w-5"
               viewBox="0 0 20 20"
               fill="white"
             >
@@ -83,7 +83,7 @@ export default function Header() {
         <h3 className="font-medium text-gray-200 text-base text-center px-2 my-4 HomePageAfter330px:text-xl sm:text-3xl sm:my-8">
           Students Comes as Strangers,<br></br>Stay as a Family
         </h3>
-        <button className="px-8 py-3 rounded-xl bg-indigo-500 text-xl text-gray-50 font-Roboto" onClick={() => dispatch(showLogin())}>Get Started</button>
+        <button className="px-4 py-2 rounded-xl bg-indigo-500 text-gray-50 font-Roboto" onClick={() => dispatch(showLogin())}>Get Started</button>
       </div>
     </main>
   );

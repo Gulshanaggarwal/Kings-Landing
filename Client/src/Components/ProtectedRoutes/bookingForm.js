@@ -3,6 +3,8 @@ import Select from "react-select";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { hideBookingForm } from '../../features/bookingSlice';
 import { useMutation } from 'react-query';
+import {createAlert} from "../../features/notificationSlice"
+import { createLoaders, destroyLoaders } from '../../features/loadingSlice';
 
 
 const bookRequest = (body) => {
@@ -38,18 +40,31 @@ export default function BookingForm({userName}) {
     const [currResidency, setCurrResidency] = useState(residencyName);
     const [selectCategory, setSelectCategory] = useState(categoryOptions[0].value);
 
-
     const mutation = useMutation((body) => bookRequest(body),{
         onSuccess(data){
+            dispatch(destroyLoaders());  //destroy laoding
+            const {message}=data;
             if(data.status==="ok"){
-                alert("Request received successfully")
+                dispatch(createAlert({
+                    message,
+                    type: "success"
+                  }))
+                
             }
             else{
-                alert(data.message);
+                dispatch(createAlert({
+                    message,
+                    type: "error"
+                  }))
             }
         },
         onError(){
-            alert("error")
+            dispatch(destroyLoaders());
+            dispatch(createAlert({
+                message:"Error occurred try again!",
+                type: "error"
+              }))
+            
         }
     })
 
@@ -57,6 +72,7 @@ export default function BookingForm({userName}) {
 
     const handleRequest=async(e)=>{
         e.preventDefault();
+        dispatch(createLoaders());  //active loading component
 
         await mutation.mutate({userName,fullName:fName,phoneNumber:phNumber,residencyId,residency:currResidency,category:selectCategory});
 
@@ -66,8 +82,8 @@ export default function BookingForm({userName}) {
 
 
     return (
-        <div className="fixed top-0 left-0 w-full h-full py-12 bg-black-transparent overflow-y-scroll custom-scrollbar">
-            <div className="bg-gray-200 rounded-md px-4 pt-8 pb-4 w-5/6 mx-auto">
+        <div className="fixed top-0 left-0 w-full h-full py-4 bg-black-transparent overflow-y-scroll custom-scrollbar text-sm">
+            <div className="bg-gray-200 rounded-md px-2 pt-4 pb-4 w-90P mx-auto">
                 <div className='flex justify-between'>
                     <h3 className='font-medium text-xl py-3'>Booking Request</h3>
                     <svg xmlns="http://www.w3.org/2000/svg" onClick={() => dispatch(hideBookingForm())} className="h-5 w-5 cursor-pointer" viewBox="0 0 20 20" fill="currentColor">
@@ -77,13 +93,13 @@ export default function BookingForm({userName}) {
                 <form className='py-4 space-y-4'>
                     <div className='flex flex-col space-y-2'>
                         <label>Full Name</label>
-                        <input className='p-2 rounded-md' type="text" placeholder="" onChange={(e) => setFName(e.target.value.trim())} />
+                        <input className='p-2 rounded-md outline-none focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent' type="text" placeholder="" onChange={(e) => setFName(e.target.value.trim())} />
                     </div>
                     <div className='flex flex-col space-y-2'>
                         <label>Phone</label>
-                        <div className='flex rounded-md bg-white p-2'>
+                        <div className='flex rounded-md bg-white p-2 focus-within:ring-2 focus-within:ring-indigo-500'>
                             <span>+91</span>
-                            <input className='w-90P border-gray-500 border-l-2 outline-none mx-1 px-2' type="text" placeholder='' onChange={(e) => setPhNumber(e.target.value.trim())} />
+                            <input className='w-90P border-gray-500 border-l-1 focus:outline-none  mx-1 px-2' type="text" placeholder='' onChange={(e) => setPhNumber(e.target.value.trim())} />
                         </div>
                     </div>
                     <div className='flex flex-col space-y-2'>

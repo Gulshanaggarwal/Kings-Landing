@@ -1,5 +1,8 @@
 import React, { useState ,useEffect} from 'react'
 import { useMutation, useQuery , useQueryClient} from "react-query";
+import {useDispatch} from "react-redux";
+import {createLoaders, destroyLoaders} from "../../../features/loadingSlice"
+import { createAlert } from '../../../features/notificationSlice';
 
 
 const updateInfo = (body) => {
@@ -18,22 +21,39 @@ export default function GeneralInfo({fullName, userName }) {
     const [fName, setFullName] = useState(fullName);
     const [phoneNumber, setPhoneNumber] = useState("");
     const [homeState, setHomeState] = useState("");
+    const dispatch = useDispatch();
 
     const queryClient=useQueryClient();
 
 
     const mutation = useMutation((body) => updateInfo(body),{
         onSuccess(data){
+            dispatch(destroyLoaders())
+            const {message}=data;
             if(data.status==="ok"){
+                dispatch(createAlert({
+                    message,
+                    type:"success"
+
+                }))
                 queryClient.invalidateQueries('findProfileData');
             }
             else{
-                alert("error");
+                dispatch(createAlert({
+                    message,
+                    type:"error"
+
+                }))
+               
             }
 
         },
         onError(){
-            alert("error");
+            dispatch(createAlert({
+                message:"Error occurred try again!",
+                type:"error"
+
+            }))
         }
     });
 
@@ -51,6 +71,8 @@ export default function GeneralInfo({fullName, userName }) {
 
     const handleUpdateInfo = async (e) => {
         e.preventDefault();
+        dispatch(createLoaders());
+
 
         await mutation.mutate({ fullName: fName, phoneNumber, homeState,userName });
         
@@ -60,7 +82,7 @@ export default function GeneralInfo({fullName, userName }) {
     
 
     return data && (
-        <section className="px-8 pt-16 sm:px-16 sm:w-5/6">
+        <section className="px-4 pt-16 text-xs sm:px-16 sm:w-5/6">
             <h2 className="font-medium text-2xl">General information</h2>
             <p className="font-Roboto pt-2 pb-4">Keep upto date your profile to get latest updates</p>
             <form>

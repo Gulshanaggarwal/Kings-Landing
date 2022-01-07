@@ -14,7 +14,7 @@ export default function Services(){
                 <p className="text-indigo-500 text-xl font-medium">Our services</p>
                 <h2 className="font-bold text-gray-800 text-3xl pt-2 pb-4">Here's what we offer</h2>
             </div>
-            <div className="grid grid-cols-1 gap-4 px-8 text-center font-Roboto sm:grid-cols-6">
+            <div className="grid grid-cols-1 gap-4 px-4 text-center font-Roboto sm:grid-cols-6">
                 <div className="w-full bg-gray-50 flex flex-col items-center px-4 py-8 rounded-md shadow-inner hover:transform hover:scale-105">
                     <img src={chefIcon} alt="Hostel food" className="w-16"/>
                     <h3 className="pt-8 text-xl" >Home made food</h3>

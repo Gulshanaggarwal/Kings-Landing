@@ -19,3 +19,19 @@
 .custom-scrollbar::-webkit-scrollbar-thumb{
     background-color: #6366F1;
 }
+/* -----
+SVG Icons - svgicons.sparkk.fr
+----- */
+
+
+  
+  .svg-icon path,
+  .svg-icon polygon,
+  .svg-icon rect {
+    fill: black;
+  }
+  
+  .svg-icon circle {
+    stroke: black;
+    stroke-width: 1;
+  }

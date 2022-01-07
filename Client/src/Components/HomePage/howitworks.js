@@ -4,10 +4,10 @@ import AI from "../../Images/AI.png"
 import choose from "../../Images/choose.png"
 export default function Howitworks() {
     return (
-        <section className="bg-white text-gray-800">
+        <section className="bg-white text-gray-800 text-xs">
             <div>
                 <h2 className="font-extrabold text-center text-indigo-500 text-3xl py-8">How it works</h2>
-                <div className="grid grid-cols-1 sm:grid-cols-3 px-8 sm:px-28 py-16 gap-16">
+                <div className="grid grid-cols-1 sm:grid-cols-3 px-4 sm:px-28 py-16 gap-16">
                     <div className="p-8 bg-gray-100 rounded-md shadow-2xl hover:transform hover:scale-105">
                         <h3 className="font-medium text-3xl text-indigo-600 text-center pt-4 pb-8">1</h3>
                         <img src={choose} alt="select" className="w-20  h-20 mx-auto" />

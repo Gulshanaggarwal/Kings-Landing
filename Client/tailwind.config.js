@@ -18,11 +18,18 @@ module.exports = {
 
         },
         fontSize:{
-          'headerLogoContent':'20px'
+          'headerLogoContent':'20px',
+          'lsxs':'0.68rem',
+          '2lsxs':'0.6rem',
+          'gtxs':'0.85rem',
+          'ls1rem':'0.95rem'
         },
         screens:{
-          'after260px':{'min':'260px'},
-          'HomePageAfter330px':{'min':'330px','max':'639px'},
+          '240-270px':{'min':'240px','max':'270px'},
+          '271-300px':{'min':'271px','max':'300px'},
+          '301-330px':{'min':'301px','max':'330px'},
+          '331-360px':{'min':'331px',}
+          
          
         },
         width:{

@@ -6,21 +6,27 @@ import PrivacyPolicy from "./Components/PrivacyPolicy"
 import Dashboard from "./Components/ProtectedRoutes/Dashboard/dashboard";
 import Profile from "./Components/ProtectedRoutes/Profile/profile";
 import LocalStateProvider from "./Store/localStateProvider";
+import Notification from "./Components/Notifications";
+import Loader from "./Components/Loading";
 
 function App() {
 
   // Welcome to kings Landing.
   return (
     <LocalStateProvider>
-      <Router>
-        <Routes>
-          <Route path="/" caseSensitive element={<HomePage />} />
-          <Route path="/dashboard" caseSensitive element={<Dashboard/>} />
-          <Route path="/profile" caseSensitive element={<Profile/>} />
-          <Route path="/privacy-policy" caseSensitive element={<PrivacyPolicy />} />
-          <Route path="*" caseSensitive element={<NotFound />} />
-        </Routes>
-      </Router>
+      <div className="font-Roboto">
+        <Router>
+          <Routes>
+            <Route path="/" caseSensitive element={<HomePage />} />
+            <Route path="/dashboard" caseSensitive element={<Dashboard />} />
+            <Route path="/profile" caseSensitive element={<Profile />} />
+            <Route path="/privacy-policy" caseSensitive element={<PrivacyPolicy />} />
+            <Route path="*" caseSensitive element={<NotFound />} />
+          </Routes>
+        </Router>
+        <Loader />
+        <Notification />
+      </div>
     </LocalStateProvider>
   );
 }

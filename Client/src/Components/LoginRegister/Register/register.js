@@ -61,15 +61,15 @@ export default function Register() {
         await mutate.mutate({ fullName, userName, password })
     }
     return (
-        <div className="bg-black-transparent fixed top-0 left-0 w-full h-full">
-            <div className="w-5/6 p-4 my-16 mx-auto bg-white rounded-md">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 float-right cursor-pointer" viewBox="0 0 20 20" fill="currentColor" onClick={() => dispatch(hideRegister())}>
+        <div className="bg-black-transparent fixed top-0 left-0 w-full h-full text-xs">
+            <div className="w-5/6 py-3 px-2 my-16 mx-auto bg-white rounded-md">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 float-right cursor-pointer" viewBox="0 0 20 20" fill="currentColor" onClick={() => dispatch(hideRegister())}>
                     <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
                 </svg>
                 <div>
                     <h3 className="text-gray-900 text-xl font-medium">Sign Up</h3>
                 </div>
-                <form className="w-5/6 my-4">
+                <form className="w-full my-2">
                     <div className="flex flex-col">
                         <label className="py-2">Full Name</label>
                         <input type="text" className="rounded-md px-2 py-2" required onChange={(e) => setfullName(e.target.value.trim())} />

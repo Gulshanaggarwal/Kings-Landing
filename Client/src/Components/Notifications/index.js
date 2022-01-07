@@ -30,6 +30,7 @@ export default function Notification() {
       setShow(true);
       stop=setTimeout(() => {
         setShow(false);
+        dispatch(destoryAlert());
         
       }, 3000);
     }
@@ -44,7 +45,7 @@ export default function Notification() {
 
   }
   return show && (
-    <div className="fixed left-0 top-0 w-full h-full bg-black-transparent">
+    <div className="fixed left-0 top-0 w-full">
       <Collapse in={show}>
         <Alert severity={alert.type} variant="filled"
           action={
@@ -67,9 +68,3 @@ export default function Notification() {
 }
 
 
-/* <Snackbar open={show} onClose={handleClose}>
-      <Alert onClose={handleClose} severity={alert.type} sx={{ width: '100%' }}>
-        {alert.message}
-      </Alert>
-    </Snackbar>
-    */

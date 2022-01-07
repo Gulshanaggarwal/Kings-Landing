@@ -7,7 +7,6 @@ import Header from "./header";
 import GalleryPreview from "./preview";
 import SideNav from "./sideNav";
 import Testimonial from "./testimonial";
-import Loader from "../Loading";
 import Notification from "../Notifications";
 import Services from "./services";
 import Howitworks from "./howitworks";
@@ -49,8 +48,6 @@ export default function HomePage() {
       {isLoginWindow && (<Login />)}
       {isRegisterWindow && (<Register />)}
       {isregisterOTPWindow && (<RegisterOTP />)}
-      <Loader />
-      <Notification />
       <ScrollTop />
     </div>
   );
