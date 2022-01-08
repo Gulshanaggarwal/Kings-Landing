@@ -7,7 +7,6 @@ import Header from "./header";
 import GalleryPreview from "./preview";
 import SideNav from "./sideNav";
 import Testimonial from "./testimonial";
-import Notification from "../Notifications";
 import Services from "./services";
 import Howitworks from "./howitworks";
 import ScrollTop from "../ScrollTop/scrollTop";
@@ -25,7 +24,7 @@ export default function HomePage() {
   const isRegisterWindow = useSelector((state) => state.register.registerWindow);
   const isregisterOTPWindow = useSelector((state) => state.registerOTP.registerOTPWindow)
 
-  const { isLoading, data, error } = useVerifyJwt();
+  const { isLoading, data} = useVerifyJwt();
   const navigate = useNavigate("");
   if (isLoading) return <h1>Loading....</h1>
 

@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useDispatch } from "react-redux";
-import { useQueryClient } from 'react-query';
 import Select from "react-select"
 import { setFilterState } from '../../features/filterSlice';
 
@@ -22,7 +21,6 @@ const locationsOptions = [
 export default function FilterBar() {
 
     const dispatch = useDispatch();
-    const queryClient=useQueryClient();
     const defaultPrice = {
         label: "Coming Soon..",
         value: "Coming Soon"
@@ -37,14 +35,14 @@ export default function FilterBar() {
 
     return (
         <React.Fragment>
-            <section className="relative z-49 bg-bgHostel py-8 bg-cover bg-no-repeat">
+            <section className="relative z-49 bg-bgHostel py-8 bg-cover bg-no-repeat text-xs">
                 <div className="grid sm:grid-cols-2 w-5/6 mx-auto gap-x-4">
                     <div>
                         <label className="py-2 block text-white">Locations in Kota</label>
                         <Select options={locationsOptions} onChange={handleLocation} />
                     </div>
                     <div>
-                        <label className='py-2 block text-white'>Pricing (in Ruppee)</label>
+                        <label className='py-2 block text-white'>Pricing (in Rupees)</label>
                         <div className="cursor-not-allowed"><Select value={defaultPrice} /></div>
                     </div>
                 </div>

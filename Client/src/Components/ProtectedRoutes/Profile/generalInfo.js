@@ -57,7 +57,7 @@ export default function GeneralInfo({fullName, userName }) {
         }
     });
 
-    const {isLoading,data,error}=useQuery("findProfileData",()=>fetch(`http://localhost:5000/getUpdateInfo/${userName}`).then((res)=>res.json()))
+    const {isLoading,data}=useQuery("findProfileData",()=>fetch(`http://localhost:5000/getUpdateInfo/${userName}`).then((res)=>res.json()))
 
     useEffect(() => {
         if(data){
@@ -82,7 +82,7 @@ export default function GeneralInfo({fullName, userName }) {
     
 
     return data && (
-        <section className="px-4 pt-16 text-xs sm:px-16 sm:w-5/6">
+        <section className="px-4 pt-16 text-xs sm:px-16 sm:w-5/6 sm:text-sm">
             <h2 className="font-medium text-2xl">General information</h2>
             <p className="font-Roboto pt-2 pb-4">Keep upto date your profile to get latest updates</p>
             <form>

@@ -33,7 +33,7 @@ router.post("/",
 
             }
             else {
-                res.status(400).json({ status: "error", message:"You are not registered !" })
+                res.status(400).json({ status: "error", message:"You are not a registered user!" })
             }
 
         } catch (error) {

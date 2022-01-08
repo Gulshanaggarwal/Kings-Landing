@@ -69,7 +69,7 @@ export default function ChangePassword({userName}) {
 
 
     return (
-        <section className="px-4 py-8 sm:px-16 sm:w-5/6 text-xs">
+        <section className="px-4 py-8 sm:px-16 sm:w-5/6 text-xs sm:text-sm">
             <h2 className="font-medium text-xl py-2">Change Password</h2>
             <form className="">
                 <div className="flex flex-col my-2">
@@ -87,7 +87,7 @@ export default function ChangePassword({userName}) {
                     <input type="text" className="px-2 py-2 rounded-md outline-none border-1 border-gray-500" placeholder="password must be of minimum 6 length" onChange={(e)=>setConfirmNewPass(e.target.value.trim())} />
                     <p className="py-2 font-Roboto">Leave blank to keep same password</p>
                 </div>
-                <button type='submit' onClick={handleChangePassword} className="font-medium px-3 py-2 rounded-md text-white bg-indigo-500 mt-2 mb-4 shadow-2xl">Change Password</button>
+                <button type='submit' onClick={handleChangePassword} className="font-medium px-3 py-3 rounded-md text-white bg-indigo-500 mt-2 mb-4 shadow-2xl">Change Password</button>
             </form>
         </section>
     )

@@ -82,8 +82,8 @@ export default function BookingForm({userName}) {
 
 
     return (
-        <div className="fixed top-0 left-0 w-full h-full py-4 bg-black-transparent overflow-y-scroll custom-scrollbar text-sm">
-            <div className="bg-gray-200 rounded-md px-2 pt-4 pb-4 w-90P mx-auto">
+        <div className="fixed top-0 left-0 w-full h-full py-12 bg-black-transparent overflow-y-scroll custom-scrollbar text-sm">
+            <div className="bg-gray-200 rounded-md px-2 pt-4 pb-4 w-90P mx-auto sm:w-2/3 md:w-1/2 xl:w-1/3">
                 <div className='flex justify-between'>
                     <h3 className='font-medium text-xl py-3'>Booking Request</h3>
                     <svg xmlns="http://www.w3.org/2000/svg" onClick={() => dispatch(hideBookingForm())} className="h-5 w-5 cursor-pointer" viewBox="0 0 20 20" fill="currentColor">
@@ -108,7 +108,7 @@ export default function BookingForm({userName}) {
                     </div>
                     <div className='flex flex-col space-y-2'>
                         <label>Select Category</label>
-                        <Select defaultInputValue={categoryOptions[0].value} options={categoryOptions} onChange={(ele) => setSelectCategory(ele.value)} />
+                        <Select  options={categoryOptions} onChange={(ele) => setSelectCategory(ele.value)} />
                     </div>
                     <button type="submit" onClick={handleRequest} className='py-3 rounded-md text-white font-medium bg-indigo-500 w-full'>Request now</button>
                 </form>

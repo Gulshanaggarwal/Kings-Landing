@@ -2,7 +2,6 @@ import React from "react";
 import { showLogin } from "../../features/loginSlice";
 import { useDispatch } from "react-redux";
 import { showSideNav } from "../../features/sidenavSlice";
-import logo from "../../Images/logo.svg"
 import Logo from "../Logo/logo";
 
 export default function Header() {

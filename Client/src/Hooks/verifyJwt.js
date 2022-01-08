@@ -4,7 +4,6 @@ import { useQuery } from "react-query";
 
 export default function useVerifyJwt() {
     const token = localStorage.getItem("__auth__token");
-    console.log(token);
 
     const { isLoading, data, error } = useQuery("verifyJwt", () => fetch("http://localhost:5000/verifyJwt", {
         headers: {
