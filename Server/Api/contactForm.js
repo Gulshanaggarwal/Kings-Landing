@@ -1,21 +1,25 @@
 const express = require("express");
 const router = express.Router();
-const nodeMailer = require("nodemailer");
 const pug = require("pug");
-const fetch = require("node-fetch");
-const transporter=require("../customFunctions/mailTransporter")
+const transporter=require("../customFunctions/mailTransporter");
+const rateLimiter=require("../Middleware/rateLimiter");
+const { body, validationResult } = require('express-validator');
 
 
-router.post('/', async (req, res) => {
+router.post('/',
+body('fullName').not().isEmpty().trim().escape().isLength({min:1,max:25}),
+body('email').isEmail().normalizeEmail(),
+body('message').not().isEmpty().trim().escape().isLength({min:1,max:150}),
+rateLimiter, async (req, res) => {
 
-  const { fullName, email, message, token } = req.body;
+  const { fullName, email, message} = req.body;
 
-  const url = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.CAPTCHA_SECRET_KEY}&response=${token}`;
 
-  const result = await fetch(url, { method: "POST" });
-  const captcha_response = await result.json();
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+      return res.status(400).json({status:"error",message:"Enter valid format of inputs only!"});
+  }
 
-  if (captcha_response.success) {
 
     const compiledFunction = pug.compileFile("Templates/contactForm.pug");
 
@@ -32,18 +36,15 @@ router.post('/', async (req, res) => {
 
     try {
       await transporter.sendMail(mailOptions);
-      res.send({ status: "ok" });
+      res.status(200).json({ status: "ok",message:"We have received your request, will contact you very soon!" });
 
     } catch (error) {
-      res.send({ status: "error" });
+      res.status.json({ status: "error",message:"Error occurred try again!" });
 
     }
 
-  }
-  else {
-    res.send({ status: "error", message: "Recaptcha verification failed" })
-  }
-
+  
+  
 
 
 

@@ -57,7 +57,9 @@ export default function GeneralInfo({fullName, userName }) {
         }
     });
 
-    const {isLoading,data}=useQuery("findProfileData",()=>fetch(`http://localhost:5000/getUpdateInfo/${userName}`).then((res)=>res.json()))
+    const {isLoading,data}=useQuery("findProfileData",()=>fetch(`http://localhost:5000/getUpdateInfo/${userName}`).then((res)=>res.json()),{
+        refetchOnMount:false
+    })
 
     useEffect(() => {
         if(data){

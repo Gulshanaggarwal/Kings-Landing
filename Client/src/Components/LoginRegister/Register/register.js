@@ -42,14 +42,14 @@ export default function Register() {
            else{
             dispatch(createAlert({
                 message: message,
-                type: "info"
+                type: "error"
             }))
            }
         },
         onError(error) {
             dispatch(destroyLoaders());
             dispatch(createAlert({
-                message: "Error",
+                message: "Error occurred try again!",
                 type: "error"
             }))
         }

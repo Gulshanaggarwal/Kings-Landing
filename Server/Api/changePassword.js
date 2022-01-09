@@ -3,9 +3,11 @@ const router = express.Router();
 const { body, validationResult } = require("express-validator");
 const userModel = require("../Models/user");
 const bcrypt = require("bcrypt");
+const rateLimiter = require("../Middleware/rateLimiter");
 
 
-router.post("/",
+router.post("/", 
+    rateLimiter,
     body('oldPassword').not().isEmpty().trim().escape(),
     body("newPassword").not().isEmpty().trim().escape().isLength({ min: 6, max: 15 }),
     async (req, res) => {

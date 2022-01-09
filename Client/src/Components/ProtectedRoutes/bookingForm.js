@@ -110,7 +110,7 @@ export default function BookingForm({userName}) {
                         <label>Select Category</label>
                         <Select  options={categoryOptions} onChange={(ele) => setSelectCategory(ele.value)} />
                     </div>
-                    <button type="submit" onClick={handleRequest} className='py-3 rounded-md text-white font-medium bg-indigo-500 w-full'>Request now</button>
+                    <button type="submit" onClick={handleRequest} className='py-3 rounded-md text-white font-medium bg-indigo-500 w-full'>Book Now</button>
                 </form>
             </div>
         </div>

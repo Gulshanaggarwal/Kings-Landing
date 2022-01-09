@@ -14,7 +14,7 @@ function App() {
   // Welcome to kings Landing.
   return (
     <LocalStateProvider>
-      <div className="font-Roboto">
+      <div className="font-Roboto w-full mx-auto xl:w-2/3 ">
         <Router>
           <Routes>
             <Route path="/" caseSensitive element={<HomePage />} />

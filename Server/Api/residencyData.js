@@ -14,7 +14,7 @@ router.get("/:location",async(req,res)=>{
     if(location!=="null"){
         try{
             let residencyData=await residencyModel.find({area:location}).exec();
-            console.log("res",residencyData.length);
+            console.log("res",residencyData);
             res.json({status:"ok",message:"success",data:residencyData})
         }
         catch{

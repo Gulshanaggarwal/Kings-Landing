@@ -3,6 +3,7 @@ const userModel=require("../Models/user");
 const {validationResult}=require("express-validator");
 
 
+
 const updateInfo = async (req, res) => {
 
     const { userName, fullName, phoneNumber, homeState } = req.body;

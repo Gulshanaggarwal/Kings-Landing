@@ -4,9 +4,11 @@ const { body, validationResult } = require("express-validator");
 const userModel = require("../Models/user");
 const transporter = require("../customFunctions/mailTransporter");
 const pug = require("pug");
+const rateLimiter=require("../Middleware/rateLimiter");
 
 
 router.post("/",
+    rateLimiter,
     body('userName').isEmail().normalizeEmail(),
     body('fullName').not().isEmpty().escape().isLength({ min: 1, max: 25 }),
     body('phoneNumber').not().isEmpty().escape().isLength({ min: 10, max: 10 }),

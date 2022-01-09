@@ -27,6 +27,13 @@ export default function ChangePassword({userName}) {
             dispatch(destroyLoaders());
             const {message}=data;
             if(data.status==="ok"){
+
+                //set values to empty
+                setOldPassword("");
+                setNewPassword("");
+                setConfirmNewPass("");
+
+                //send a notification
                dispatch(createAlert({
                    message,
                    type:"success"
@@ -74,17 +81,17 @@ export default function ChangePassword({userName}) {
             <form className="">
                 <div className="flex flex-col my-2">
                     <label className="py-2">Old password</label>
-                    <input type="text" className="px-2 py-2 rounded-md border-1 outline-none border-gray-500" placeholder="" onChange={(e)=>setOldPassword(e.target.value.trim())} />
+                    <input type="password" value={oldPassword} className="px-2 py-2 rounded-md border-1 outline-none border-gray-500" placeholder="" onChange={(e)=>setOldPassword(e.target.value.trim())} />
                     <p className="py-2 font-Roboto">Leave blank to keep same password</p>
                 </div>
                 <div className="flex flex-col my-2">
                     <label className="py-2">New password</label>
-                    <input type="text" className="px-2 py-2 rounded-md outline-none border-1 border-gray-500" placeholder="password must be of minimum 6 length" onChange={(e)=>setNewPassword(e.target.value.trim())} />
+                    <input type="password" value={newPassword} className="px-2 py-2 rounded-md outline-none border-1 border-gray-500" placeholder="password must be of minimum 6 length" onChange={(e)=>setNewPassword(e.target.value.trim())} />
                     <p className="py-2 font-Roboto">Leave blank to keep same password</p>
                 </div>
                 <div className="flex flex-col my-2">
                     <label className="py-2">Confirm new password</label>
-                    <input type="text" className="px-2 py-2 rounded-md outline-none border-1 border-gray-500" placeholder="password must be of minimum 6 length" onChange={(e)=>setConfirmNewPass(e.target.value.trim())} />
+                    <input type="password" value={confirmNewpass} className="px-2 py-2 rounded-md outline-none border-1 border-gray-500" placeholder="password must be of minimum 6 length" onChange={(e)=>setConfirmNewPass(e.target.value.trim())} />
                     <p className="py-2 font-Roboto">Leave blank to keep same password</p>
                 </div>
                 <button type='submit' onClick={handleChangePassword} className="font-medium px-3 py-3 rounded-md text-white bg-indigo-500 mt-2 mb-4 shadow-2xl">Change Password</button>

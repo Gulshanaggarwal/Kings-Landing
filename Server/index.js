@@ -4,6 +4,8 @@ const bodyParser=require("body-parser");
 const cors=require('cors');
 const mongoose=require("mongoose");
 
+const rateLimiter=require("./Middleware/rateLimiter");
+
 const contactForm=require("./Api/contactForm");
 const login=require("./Api/login")
 const register=require("./Api/register");
@@ -25,7 +27,9 @@ const corsOptions={                                       // set cors option
     optionsSuccessStatus: 200
 }
 */
-mongoose.connect(process.env.DB_URL,{ useNewUrlParser: true, useUnifiedTopology: true });       // connect with Mongo Atlas
+mongoose.connect(process.env.DB_URL,{ useNewUrlParser: true, useUnifiedTopology: true });// connect with Mongo Atlas
+
+
 
 app.set("view engine","pug")  
 app.use(cors())    ;     // set template engine

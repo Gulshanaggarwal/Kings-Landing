@@ -1,19 +1,64 @@
 import React, { useState } from "react";
+import { useMutation } from "react-query";
 import doodle from "../../Images/doodle.svg";
 import { createAlert } from "../../features/notificationSlice"
 import { useDispatch } from 'react-redux'
 import { createLoaders, destroyLoaders } from "../../features/loadingSlice"
 
 
-let emailRegex = /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/;
+const handleForm = (body) => {
+  return fetch("http://localhost:5000/contact-form", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(body)
+  }).then(res=>res.json())
+}
 
 export default function Contact() {
 
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-
   const dispatch = useDispatch();
+
+
+  const mutation = useMutation((body) => handleForm(body), {
+    onSuccess(data) {
+      dispatch(destroyLoaders());
+      const { message, status } = data;
+      if (status === "ok") {
+
+        // set field values to empty
+        setFullName("");
+        setEmail("");
+        setMessage("");
+
+        // send a notification
+        dispatch(createAlert({
+          message,
+          type: "success"
+        }))
+      }
+      else {
+        dispatch(createAlert({
+          message,
+          type: "error"
+        }))
+      }
+    },
+    onError() {
+      dispatch(destroyLoaders());
+      dispatch(createAlert(
+        {
+          message: "Error occurred try again!",
+          type: "error"
+        }
+      ))
+    }
+  })
+
 
 
   // handle Form submit
@@ -21,81 +66,9 @@ export default function Contact() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    dispatch(createLoaders());
+    await mutation.mutate({ fullName, email, message })
 
-    if (fullName.length > 0 && email.length > 0 && message.length > 0 && emailRegex.test(email)) {
-
-      // apply loading action
-
-      dispatch(createLoaders())
-
-      window.grecaptcha.ready(() => window.grecaptcha.execute('6LcfsV0dAAAAACYTpiAYDzxLT1ZnhsBL5JjGEFdK', { action: 'submit' }).then(async function (token) {
-
-        // Add your logic to submit to your backend server here.
-
-
-        const option = {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            fullName,
-            email,
-            message,
-            token
-
-          })
-        }
-
-        try {
-          const response = await fetch("http://localhost:5000/contact-form", option);
-          const data = await response.json();
-          // destroy loaders
-
-          dispatch(destroyLoaders());
-
-          if (data.status === "ok") {
-            dispatch(createAlert({
-              message: "Success! we will contact you very soon!",
-              type: "success"
-            }))
-          }
-          else {
-            dispatch(createAlert({
-              message: "server error, Try again!",
-              type: "error"
-            }))
-          }
-
-        } catch (error) {
-          //destro loaders
-          dispatch(destroyLoaders());
-          dispatch(createAlert({
-            message: "Oops! server error, Try again",
-            type: "error"
-          }))
-
-        }
-      }))
-
-
-
-
-    }
-    else {
-      if (fullName.length === 0 || email.length === 0 || message.length === 0) {
-        dispatch(createAlert({
-          message: "Fields cannot be empty!",
-          type: "info"
-        }))
-      }
-      else if (!emailRegex.test(email)) {
-        dispatch(createAlert({
-          message: "Enter a valid email address!",
-          type: "info"
-        }))
-      }
-    }
 
   }
 
@@ -167,9 +140,8 @@ export default function Contact() {
         </div>
         <button
           type="submit"
-          className="g-recaptcha w-full p-3 text-xs font-bold tracking-wide uppercase rounded bg-gray-900 text-white HomePageAfter330px:text-sm"
+          className="w-full p-3 text-xs font-bold tracking-wide uppercase rounded bg-gray-900 text-white HomePageAfter330px:text-sm"
           onClick={handleSubmit}
-          data-sitekey="6LcfsV0dAAAAACYTpiAYDzxLT1ZnhsBL5JjGEFdK"
 
         >
           Send Message

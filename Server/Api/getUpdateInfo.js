@@ -3,10 +3,10 @@ const router = experss.Router();
 const getInfo = require("../Controllers/getInfo");
 const updateInfo = require("../Controllers/updateInfo");
 const { body} = require('express-validator');
-
+const rateLimiter=require("../Middleware/rateLimiter");
 
 router.get("/:userName", getInfo);
-router.post("/", body('userName').isEmail(),
+router.post("/",rateLimiter, body('userName').isEmail(),
     body('fullName').not().isEmpty().escape().isLength({ min: 1, max: 20 }),
     body('phoneNumber').not().isEmpty().escape().isLength({ min: 10, max: 10 }),
     body('homeState').not().isEmpty().escape().isLength({ min: 3, max: 15 }),

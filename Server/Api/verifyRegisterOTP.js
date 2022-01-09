@@ -3,8 +3,10 @@ const router = express.Router();
 const trackRegisterOTP = require("../Models/trackregisterOTP");
 const userModel = require("../Models/user")
 const { body, validationResult } = require('express-validator');
+const rateLimiter=require("../Middleware/rateLimiter");
 
 router.post("/",
+    rateLimiter,
     body('OTP').not().isEmpty().trim().escape().isLength({ min: 6, max: 6 }),
     body('processId').not().isEmpty().trim().escape().isLength({ min: 24, max: 24 }),
     async (req, res) => {

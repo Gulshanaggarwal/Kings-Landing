@@ -6,9 +6,11 @@ const transporter = require("../customFunctions/mailTransporter");
 const trackRegisterOTP = require("../Models/trackregisterOTP");
 const bcrypt=require("bcrypt");
 const { body, validationResult } = require('express-validator');
+const rateLimiter=require("../Middleware/rateLimiter");
 
 
 router.post("/",
+rateLimiter,
 body('fullName').not().isEmpty().escape().isLength({min:1,max:20}),
 body('userName').isEmail().normalizeEmail(),
 body('password').not().isEmpty().escape().isLength({min:6,max:15}),

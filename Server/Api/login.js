@@ -4,10 +4,12 @@ const userModel = require("../Models/user");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const { body, validationResult } = require('express-validator');
+const rateLimiter=require("../Middleware/rateLimiter");
 
 router.post("/",
+    rateLimiter,
     body('userName').isEmail().normalizeEmail(),
-    body('password').not().isEmpty().trim().escape().isLength({max:12}),
+    body('password').not().isEmpty().trim().escape().isLength({max:15}),
     async (req, res) => {
         const { userName, password } = req.body;
 

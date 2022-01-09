@@ -15,7 +15,9 @@ export default function ShowResults() {
 
 
 
-    const { isLoading, data} = useQuery(["residency", location], () => fetch(`http://localhost:5000/residencyData/${location}`).then((res) => res.json()));
+    const { isLoading, data} = useQuery(["residency", location], () => fetch(`http://localhost:5000/residencyData/${location}`).then((res) => res.json()),{
+        refetchOnMount:false
+    });
 
 
     if (isLoading) return <h2>Loading ....</h2>
