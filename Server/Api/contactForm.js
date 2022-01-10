@@ -39,7 +39,7 @@ rateLimiter, async (req, res) => {
       res.status(200).json({ status: "ok",message:"We have received your request, will contact you very soon!" });
 
     } catch (error) {
-      res.status.json({ status: "error",message:"Error occurred try again!" });
+      res.status(500).json({ status: "error",message:"Error occurred try again!" });
 
     }
 
