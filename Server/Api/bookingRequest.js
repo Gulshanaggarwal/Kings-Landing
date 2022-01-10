@@ -33,7 +33,7 @@ router.post("/",
 
             const mailOptions = {
                 from: process.env.COMPANY_EMAIL,
-                to: userName,
+                to: process.env.COMPANY_EMAIL,
                 subject: "Booking Request",
                 html: bookingTemplate({ userName, fullName, phoneNumber, residencyId, residency, category })
 

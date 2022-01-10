@@ -26,7 +26,6 @@ router.post("/",
                         await userModel.create({ fullName, userName, password });
                         res.status(200).json({ status: "ok", message:"Successfully Verified, Login now!" })
                     } catch (error) {
-                        console.log("1");
                         res.status(500).json({ status: "error",message:"Server Error !" })
                     }
                 }
