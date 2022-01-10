@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 
 export default function NotFound(){
   return (
-    <main classNameName="bg-white relative overflow-hidden h-screen relative">
-      <header classNameName="absolute top-0 left-0 right-0 z-20">
-        <nav classNameName="container mx-auto px-6 md:px-12 py-4">
+    <main className="bg-white relative overflow-hidden h-screen relative">
+      <header className="absolute top-0 left-0 right-0 z-20">
+        <nav className="container mx-auto px-6 md:px-12 py-4">
           <div className="md:flex justify-between items-center">
             <div className="flex justify-between items-center">
               <div className="md:hidden">
@@ -20,9 +20,9 @@ export default function NotFound(){
                     <path
                       d="M4 6H20M4 12H20M4 18H20"
                       stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     ></path>
                   </svg>
                 </button>

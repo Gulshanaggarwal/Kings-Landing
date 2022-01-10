@@ -53,7 +53,7 @@ body('password').not().isEmpty().escape().isLength({min:6,max:15}),
                         const hashPassword=await bcrypt.hash(password,saltRounds);
                         try {
                             const result = await trackRegisterOTP.create({ registerOTP: randOTP, fullName, userName, password:hashPassword });
-                            res.json({ status: "ok", OTPSent: true, processId:result._id,message:"OTP sent successfully!" })
+                            res.status(200).json({ status: "ok", OTPSent: true, processId:result._id,message:"OTP sent successfully!" })
 
                         } catch (error) {
                             res.status(500).json({ status: "error",message:"Server Error !" })

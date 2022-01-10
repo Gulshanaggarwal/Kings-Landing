@@ -31,7 +31,7 @@ router.post("/",
                     }
                 }
                 else {
-                    res.status(400).json({ status: "error", message:"Enter a valid OTP !" })
+                    res.status(401).json({ status: "error", message:"Enter a valid OTP !" })
                 }
             }
         }

@@ -72,7 +72,7 @@ export default function Login() {
                     <h3 className="text-gray-900 text-xl  font-medium">Sign in</h3>
                     <div className="py-4">
                         <span>Or</span>
-                        <button className="mx-2 underline" onClick={() => {
+                        <button className="mx-2 underline font-medium" onClick={() => {
                             dispatch(hideLogin());   // hide Login
                             dispatch(showRegister());
                         }}>Register for an account</button>
@@ -89,7 +89,6 @@ export default function Login() {
                     </div>
                     <button type="submit" className="bg-gray-900 text-gray-50 font-Roboto py-2 rounded-md px-3 my-4" onClick={handleLogin}>Sign in</button>
                 </form>
-                <button>Forgot Password?</button>
             </div>
         </div>
     )

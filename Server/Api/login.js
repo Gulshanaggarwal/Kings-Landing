@@ -30,7 +30,7 @@ router.post("/",
                     res.status(200).json({ status: "ok", user: true, token,message:"logged in successfully !" })
                 }
                 else {
-                    res.status(400).json({ status: "error", message:"Invalid  Credentials!" })
+                    res.status(401).json({ status: "error", message:"Invalid  Credentials!" })
                 }
 
             }

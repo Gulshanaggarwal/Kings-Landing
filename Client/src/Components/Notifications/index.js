@@ -37,7 +37,7 @@ export default function Notification() {
     return ()=>{
       clearTimeout(stop);
     }
-  }, [alerts])
+  },[alerts,dispatch])
 
   const handleClose = () => {
     setShow(false);

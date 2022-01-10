@@ -7,10 +7,10 @@ const getInfo=async(req,res)=>{
     try {
 
         const user=await userModel.findOne({userName},'phoneNumber homeState').exec();
-        res.json({status:"ok",user,message:"Success"})
+        res.status(200).json({status:"ok",user,message:"Success"})
         
     } catch (error) {
-        res.send({status:"Server Error!"})
+        res.status(500).json({status:"error",message:"Server Error try again!"})
         
     }
 

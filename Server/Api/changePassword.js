@@ -29,7 +29,7 @@ router.post("/",
                 res.status(200).json({ status: "ok", message: "Password Changed Successfully!" })
             }
             else {
-                res.status(400).json({ status: "error", message: "Old password doesn't match" });
+                res.status(401).json({ status: "error", message: "Old password doesn't match" });
             }
 
 
