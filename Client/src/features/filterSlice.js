@@ -12,7 +12,6 @@ export const filterSlice=createSlice({
     reducers:{
         setFilterState:(state,{payload})=>{
             state.location=payload.location;
-            console.log(state.location);
         }
     }
     

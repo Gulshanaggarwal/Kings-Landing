@@ -81,6 +81,7 @@ export default function Register() {
                     <div className="flex flex-col">
                         <label className="py-2">Set Password</label>
                         <input type="password" className="rounded-md px-2 py-2 bg-indigo-100 outline-none focus:ring-1 focus:ring-gray-900" required onChange={(e) => setPassword(e.target.value.trim())} />
+                        <p className='py-1 text-red-500'>Minimum six characters required</p>
                     </div>
                     <button type="submit" className="bg-gray-900 text-gray-50 font-Roboto py-2 rounded-md px-4 my-4" onClick={handleSignup}>Sign up</button>
                 </form>

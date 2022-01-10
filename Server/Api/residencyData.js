@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const residencyModel=require("../Models/residencyModel");
-let residencyData=[];
+
 
 
 
@@ -13,8 +13,7 @@ router.get("/:location",async(req,res)=>{
 
     if(location!=="null"){
         try{
-            let residencyData=await residencyModel.find({area:location}).exec();
-            console.log("res",residencyData);
+            const residencyData=await residencyModel.find({area:location}).exec();
             res.json({status:"ok",message:"success",data:residencyData})
         }
         catch{

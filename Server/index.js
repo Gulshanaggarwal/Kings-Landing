@@ -1,25 +1,23 @@
-const express=require("express");
-const app=express();
-const bodyParser=require("body-parser");
-const cors=require('cors');
-const mongoose=require("mongoose");
+const express = require("express");
+const app = express();
+const bodyParser = require("body-parser");
+const cors = require('cors');
+const mongoose = require("mongoose");
 
-const rateLimiter=require("./Middleware/rateLimiter");
-
-const contactForm=require("./Api/contactForm");
-const login=require("./Api/login")
-const register=require("./Api/register");
-const verifyRegisterOTP=require("./Api/verifyRegisterOTP");
-const verifyJwt=require("./Api/jwtVerify");
-const residencyData=require("./Api/residencyData");
-const getUpdateInfo=require("./Api/getUpdateInfo");
-const ChangePassword=require("./Api/changePassword");
-const bookingRequest=require("./Api/bookingRequest");
+const contactForm = require("./Api/contactForm");
+const login = require("./Api/login")
+const register = require("./Api/register");
+const verifyRegisterOTP = require("./Api/verifyRegisterOTP");
+const verifyJwt = require("./Api/jwtVerify");
+const residencyData = require("./Api/residencyData");
+const getUpdateInfo = require("./Api/getUpdateInfo");
+const ChangePassword = require("./Api/changePassword");
+const bookingRequest = require("./Api/bookingRequest");
 
 require("dotenv").config();
 
 
-const PORT=process.env.PORT || 5000;  // Port
+const PORT = process.env.PORT || 5000;  // Port
 
 /*
 const corsOptions={                                       // set cors option
@@ -27,15 +25,27 @@ const corsOptions={                                       // set cors option
     optionsSuccessStatus: 200
 }
 */
-mongoose.connect(process.env.DB_URL,{ useNewUrlParser: true, useUnifiedTopology: true });// connect with Mongo Atlas
+mongoose.connect(process.env.DB_URL, { useNewUrlParser: true, useUnifiedTopology: true });// connect with Mongo Atlas
 
 
 
-app.set("view engine","pug")  
-app.use(cors())    ;     // set template engine
+app.set("view engine", "pug")  // set template engine    ;     
 
 app.use(bodyParser.json());             // parse the body
 
+const whiteList = [
+  "https://www.kingslandingindia.in",
+]
+
+const corsOptionsDelegate = function (req, callback) {
+  let corsOptions;
+  if (whiteList.indexOf(req.header('Origin')) !== -1) {
+    corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
+  } else {
+    corsOptions = { origin: false } // disable CORS for this request
+  }
+  callback(null, corsOptions) // callback expects two parameters: error and options
+}
 /*
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", process.env.ALLOWED_CORS_ORIGIN);
@@ -46,21 +56,19 @@ app.use((req, res, next) => {
     next()
   });*/
 
-
-app.use("/contact-form",contactForm);
-app.use("/login",login);
-app.use("/register",register);
-app.use("/verify-register-OTP",verifyRegisterOTP);
-app.use("/verifyJwt",verifyJwt);
-app.use("/residencyData",residencyData);
-app.use("/getUpdateInfo",getUpdateInfo);
-app.use("/changePassword",ChangePassword);
-app.use("/book-request",bookingRequest)
-
-app.get("*",(req,res)=>{
-    res.send("Invalid Request!");
-})
+app.use(cors(corsOptionsDelegate))
+app.use("/contact-form", contactForm);
+app.use("/login", login);
+app.use("/register", register);
+app.use("/verify-register-OTP", verifyRegisterOTP);
+app.use("/verifyJwt", verifyJwt);
+app.use("/residencyData", residencyData);
+app.use("/getUpdateInfo", getUpdateInfo);
+app.use("/changePassword", ChangePassword);
+app.use("/book-request", bookingRequest)
 
 
 
-app.listen(PORT,()=>console.log("Express server ready"));
+
+
+app.listen(PORT, () => console.log("Express server ready"));

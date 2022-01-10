@@ -86,12 +86,12 @@ export default function ChangePassword({userName}) {
                 </div>
                 <div className="flex flex-col my-2">
                     <label className="py-2">New password</label>
-                    <input type="password" value={newPassword} className="px-2 py-2 rounded-md outline-none border-1 border-gray-500" placeholder="password must be of minimum 6 length" onChange={(e)=>setNewPassword(e.target.value.trim())} />
+                    <input type="password" value={newPassword} className="px-2 py-2 rounded-md outline-none border-1 border-gray-500" placeholder="minimum six characters required" onChange={(e)=>setNewPassword(e.target.value.trim())} />
                     <p className="py-2 font-Roboto">Leave blank to keep same password</p>
                 </div>
                 <div className="flex flex-col my-2">
                     <label className="py-2">Confirm new password</label>
-                    <input type="password" value={confirmNewpass} className="px-2 py-2 rounded-md outline-none border-1 border-gray-500" placeholder="password must be of minimum 6 length" onChange={(e)=>setConfirmNewPass(e.target.value.trim())} />
+                    <input type="password" value={confirmNewpass} className="px-2 py-2 rounded-md outline-none border-1 border-gray-500" placeholder="minimum six characters required" onChange={(e)=>setConfirmNewPass(e.target.value.trim())} />
                     <p className="py-2 font-Roboto">Leave blank to keep same password</p>
                 </div>
                 <button type='submit' onClick={handleChangePassword} className="font-medium px-3 py-3 rounded-md text-white bg-indigo-500 mt-2 mb-4 shadow-2xl">Change Password</button>

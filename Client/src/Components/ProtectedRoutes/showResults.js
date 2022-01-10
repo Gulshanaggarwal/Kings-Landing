@@ -1,6 +1,6 @@
 import React from 'react'
-import { useQuery} from "react-query";
-import { useDispatch, useSelector} from "react-redux"
+import { useQuery } from "react-query";
+import { useDispatch, useSelector } from "react-redux"
 import rupeeIcon from "../../Images/rupee-indian.png";
 import { showBookingForm } from "../../features/bookingSlice"
 
@@ -15,8 +15,8 @@ export default function ShowResults() {
 
 
 
-    const { isLoading, data} = useQuery(["residency", location], () => fetch(`http://localhost:5000/residencyData/${location}`).then((res) => res.json()),{
-        refetchOnMount:false
+    const { isLoading, data } = useQuery(["residency", location], () => fetch(`http://localhost:5000/residencyData/${location}`).then((res) => res.json()), {
+        refetchOnMount: false
     });
 
 
@@ -44,7 +44,7 @@ export default function ShowResults() {
                     return (
                         <div className='w-90P mx-auto my-8 border-1 border-gray-600 rounded-md bg-indigo-50 text-2lsxs 271-300px:text-lsxs 301-330px:text-gtxs 331-360px:text-ls1rem' key={ele._id}>
                             <div className="w-full h-40 sm:h-48 md:h-64 2xl:h-72">
-                                <img src={ele.images[0].url}  className='w-full h-full rounded-md' alt={ele.images[0].description} />
+                                <img src={ele.images[0].url} className='w-full h-full rounded-md' alt={ele.images[0].description} />
                             </div>
                             <div className='px-2 py-5'>
                                 <div className="flex justify-between">
@@ -72,12 +72,12 @@ export default function ShowResults() {
 
                                 {
                                     ele.residencyType.hostel.length > 0 ? <div className='flex items-center my-2'>
-                                        <img src="https://res.cloudinary.com/stanza-living/image/upload/f_auto,q_auto,w_100/v1598893837/Website/bed.png" class="w-4 h-4" />
+                                        <img src="https://res.cloudinary.com/stanza-living/image/upload/f_auto,q_auto,w_100/v1598893837/Website/bed.png" className="w-4 h-4" />
                                         {
                                             ele.residencyType.hostel.map((item, index) => <span key={index} className='px-1'>{item.roomType},</span>)
                                         }
                                     </div> : <div className='flex items-center my-2'>
-                                        <svg xmlns="http://www.w3.org/2000/svg" className='w-5 h-5' viewBox="0 0 24 24"><path d="M20 9.556V3h-2v2H6V3H4v6.557C2.81 10.25 2 11.526 2 13v4a1 1 0 0 0 1 1h1v4h2v-4h12v4h2v-4h1a1 1 0 0 0 1-1v-4c0-1.474-.811-2.75-2-3.444zM11 9H6V7h5v2zm7 0h-5V7h5v2z"></path></svg>
+                                        <img src="https://res.cloudinary.com/stanza-living/image/upload/f_auto,q_auto,w_100/v1598893837/Website/bed.png" className="w-4 h-4" />
                                         {
                                             ele.residencyType.flat.map((item, index) => <span key={index} className='px-1'>{item.roomType},</span>)
                                         }

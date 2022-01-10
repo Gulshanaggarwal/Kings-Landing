@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function PolicyContent(){
   return (
-    <section className="px-4 py-8  bg-gray-100 text-gray-900 sm:px-16">
+    <section className="px-2 py-8  bg-gray-100 text-gray-900 sm:px-16 text-sm sm:text-base">
       <div>
         <div className="flex items-center space-x-2">
           <svg
@@ -18,20 +18,20 @@ export default function PolicyContent(){
               clipRule="evenodd"
             />
           </svg>
-          <Link to="/" className="underline text-blue-500">
+          <Link to="/dashboard" className="underline text-blue-500">
             Go back to main page
           </Link>
         </div>
         <div className="my-4">
-          <h2 className="text-2xl font-bold py-2">Privacy Policy</h2>
-          <p className="leading-8">
+          <h2 className="text-xl font-bold py-2 sm:text-2xl">Privacy Policy</h2>
+          <p className="leading-7">
             Kings Landing take cares of your privacy, We are always committed to
             protect your privacy.Our privacy policy shows how we collect, use
             your personal informations such as Name, PhoneNumber and Email etc.
           </p>
-          <p className="py-2">
+          <p className="py-2 leading-7">
             {" "}
-            <span className="text-red-500 font-medium leading-8">Note: </span>We do not
+            <span className="text-red-500 font-bold leading-7">Note: </span>We do not
             sell your personal information such as your name and contact
             information - to third parties to use for their own marketing
             purposes.
@@ -42,8 +42,8 @@ export default function PolicyContent(){
         </div>
         <ul className="space-y-4">
           <li>
-            <span className="list-disc font-medium">To provide our services</span>
-            <p className="py-2 leading-8">
+            <span className="list-disc font-bold">To provide our services</span>
+            <p className="py-2 leading-7">
               To provide you the services we offer on the kings landing Platform
               and make the kings landing Platform available to the public,
               communicate with you about your use of the kings landing Platform,
@@ -52,8 +52,8 @@ export default function PolicyContent(){
             </p>
           </li>
           <li>
-            <span className="list-disc font-medium">Personalization</span>
-            <p className="py-2 leading-8">
+            <span className="list-disc font-bold">Personalization</span>
+            <p className="py-2 leading-7">
               To tailor the content and information that we may send or display
               to you in the kings landing Platform, to suggest followers and
               content, to offer location customization, and personalized help
@@ -62,8 +62,8 @@ export default function PolicyContent(){
             </p>
           </li>
           <li>
-            <span className="list-disc font-medium">Advertising</span>
-            <p className="py-2 leading-8">
+            <span className="list-disc font-bold">Advertising</span>
+            <p className="py-2 leading-7">
               To display interest-based advertising to you in the Quora
               Platform, to improve our advertising and measurement systems so we
               can show you relevant ads, to pre-fill forms in ads, and to
@@ -72,8 +72,8 @@ export default function PolicyContent(){
             </p>
           </li>
           <li>
-            <span className="list-disc font-medium">Marketing and Promotions</span>
-            <p className="py-2 leading-8">
+            <span className="list-disc font-bold">Marketing and Promotions</span>
+            <p className="py-2 leading-7">
               For marketing and promotional purposes, such as to send you news
               and newsletters, special offers, and promotions, or to otherwise
               contact you about products or information we think may interest

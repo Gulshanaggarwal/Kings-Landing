@@ -22,6 +22,10 @@ const userSchema=new mongoose.Schema({
     homeState:{
         type:String,
         default:""
+    },
+    CreatedAt:{
+        type:String,
+        default:Date.now
     }
 });
 
