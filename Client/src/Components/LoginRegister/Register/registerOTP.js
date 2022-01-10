@@ -7,7 +7,7 @@ import { createLoaders, destroyLoaders } from '../../../features/loadingSlice';
 import { createAlert } from '../../../features/notificationSlice';
 
 const verifyOTP=(body)=>{
-    return fetch("http://localhost:5000/verify-register-OTP",{
+    return fetch("https://backend-kingslanding.herokuapp.com/verify-register-OTP",{
         method:"POST",
         headers:{
             "Content-Type":"application/json"

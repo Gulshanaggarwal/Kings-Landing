@@ -5,7 +5,7 @@ import { useQuery } from "react-query";
 export default function useVerifyJwt() {
     const token = localStorage.getItem("__auth__token");
 
-    const { isLoading, data, error } = useQuery("verifyJwt", () => fetch("http://localhost:5000/verifyJwt", {
+    const { isLoading, data, error } = useQuery("verifyJwt", () => fetch("https://backend-kingslanding.herokuapp.com/verifyJwt", {
         headers: {
             "x-access-token": token,
         },

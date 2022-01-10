@@ -10,7 +10,7 @@ import { createAlert } from '../../features/notificationSlice';
 
 
 const login = (body) => {
-    return fetch("http://localhost:5000/login", {
+    return fetch("https://backend-kingslanding.herokuapp.com/login", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"

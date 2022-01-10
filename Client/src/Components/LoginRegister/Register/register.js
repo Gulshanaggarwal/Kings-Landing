@@ -10,7 +10,7 @@ import { createAlert } from '../../../features/notificationSlice';
 
 
 const register = (body) => {
-    return fetch("http://localhost:5000/register", {
+    return fetch("https://backend-kingslanding.herokuapp.com/register", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"

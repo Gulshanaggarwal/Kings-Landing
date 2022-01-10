@@ -6,7 +6,7 @@ import { createAlert } from '../../../features/notificationSlice';
 
 
 const updateInfo = (body) => {
-    return fetch("http://localhost:5000/getUpdateInfo", {
+    return fetch("https://backend-kingslanding.herokuapp.com/getUpdateInfo", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -57,7 +57,7 @@ export default function GeneralInfo({fullName, userName }) {
         }
     });
 
-    const {isLoading,data}=useQuery("findProfileData",()=>fetch(`http://localhost:5000/getUpdateInfo/${userName}`).then((res)=>res.json()),{
+    const {isLoading,data}=useQuery("findProfileData",()=>fetch(`https://backend-kingslanding.herokuapp.com/getUpdateInfo/${userName}`).then((res)=>res.json()),{
         refetchOnMount:false
     })
 

@@ -7,7 +7,7 @@ import { createLoaders, destroyLoaders } from "../../features/loadingSlice"
 
 
 const handleForm = (body) => {
-  return fetch("http://localhost:5000/contact-form", {
+  return fetch("https://backend-kingslanding.herokuapp.com/contact-form", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
