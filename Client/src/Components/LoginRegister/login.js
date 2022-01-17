@@ -6,6 +6,7 @@ import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { createLoaders, destroyLoaders } from '../../features/loadingSlice';
 import { createAlert } from '../../features/notificationSlice';
+import { showForgotPassword } from '../../features/forgotPasswordSlice';
 
 
 
@@ -89,6 +90,10 @@ export default function Login() {
                     </div>
                     <button type="submit" className="bg-gray-900 text-gray-50 font-Roboto py-2 rounded-md px-3 my-4" onClick={handleLogin}>Sign in</button>
                 </form>
+                <button onClick={()=>{
+                    dispatch(hideLogin());
+                    dispatch(showForgotPassword())
+                }} type='button'>Forgot password ?</button>
             </div>
         </div>
     )
