@@ -20,4 +20,4 @@ export const ForgotPasswordSlice=createSlice({
 })
 
 
-export const {showForgotPassword}=ForgotPasswordSlice.actions;
+export const {showForgotPassword,hideForgotPassword}=ForgotPasswordSlice.actions;
