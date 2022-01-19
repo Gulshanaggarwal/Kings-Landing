@@ -13,6 +13,8 @@ const residencyData = require("./Api/residencyData");
 const getUpdateInfo = require("./Api/getUpdateInfo");
 const ChangePassword = require("./Api/changePassword");
 const bookingRequest = require("./Api/bookingRequest");
+const forgotPassword=require("./Api/forgotPassword");
+const verifyForgotPassword=require("./Api/verifyForgotPassword")
 
 require("dotenv").config();
 
@@ -66,7 +68,9 @@ app.use("/verifyJwt", verifyJwt);
 app.use("/residencyData", residencyData);
 app.use("/getUpdateInfo", getUpdateInfo);
 app.use("/changePassword", ChangePassword);
-app.use("/book-request", bookingRequest)
+app.use("/book-request", bookingRequest);
+app.use("/forgot-password",forgotPassword);
+app.use("/verify-forgot-password",verifyForgotPassword)
 
 
 

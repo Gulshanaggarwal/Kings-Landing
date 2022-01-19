@@ -8,11 +8,14 @@ const initialState={
 
 export const forgotPasswordProcessIDSlice=createSlice({
 
-    name:"forgotPasswordProcessIDSlice",
+    name:"forgotPasswordProcessID",
     initialState,
     reducers:{
-        setForgotPasswordProcessID:(state,{payload})=>{
-            state.forgotPasswordProcessID=payload.processID;
+        setForgotPasswordProcessID:(state,action)=>{
+            const {processID}=action.payload;
+            state.forgotPasswordProcessID=processID;
+
+            console.log(state.forgotPasswordProcessID);
         }
     }
 

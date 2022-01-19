@@ -10,7 +10,7 @@ const trackResetOTP = require("../Models/trackResetOTP");
 
 router.post("/",
     body('userName').isEmail().normalizeEmail(),
-    (req, res) => {
+    async(req, res) => {
 
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -31,10 +31,10 @@ router.post("/",
                 html: `OTP for Forgot Password ${randOTP}`
             }
 
-            transporter.sendMail(mailOptions, (err) => {
+            transporter.sendMail(mailOptions, async(err) => {
                 if (err) res.status(500).json({ status: "server error", message: "Couldn't send OTP, try again!" })
-                await trackResetOTP.create({ userName, resetOTP: randOTP });
-                res.status(200).json({ status: "ok", message: "OTP Sent Successfully" })
+                const result=await trackResetOTP.create({ userName, resetOTP: randOTP });
+                res.status(200).json({ status: "ok", message: "OTP Sent Successfully",processID:result._id })
 
             })
 

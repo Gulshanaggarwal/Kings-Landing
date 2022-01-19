@@ -3,10 +3,12 @@ import {useMutation} from "react-query";
 import {useDispatch} from "react-redux";
 import { setForgotPasswordProcessID } from "../../features/forgotPassProcessIDSlice";
 import { hideForgotPassword } from "../../features/forgotPasswordSlice";
+import { createLoaders, destroyLoaders } from "../../features/loadingSlice";
+import { createAlert } from "../../features/notificationSlice";
 import { showForgotPasswordOTPPage } from "../../features/verifyForgotPasswordOTPSlice";
 
 const sendRequest=(body)=>{
-    return fetch("http://localhost:3000/forgot-password",{
+    return fetch("http://localhost:5000/forgot-password",{
         method:"POST",
         headers:{
             "Content-Type":"application/json"
@@ -22,6 +24,7 @@ export default function ForgotPassword() {
 
     const mutation= useMutation((body)=>sendRequest(body),{
         onSuccess(data){
+            dispatch(destroyLoaders())
             const {status,message}=data;
             if(status==="ok"){
                 dispatch(setForgotPasswordProcessID({processID:data.processID}))
@@ -29,17 +32,25 @@ export default function ForgotPassword() {
                 dispatch(showForgotPasswordOTPPage())
             }
             else{
-                alert(message)
+                dispatch(createAlert({
+                    message,
+                    type:"error"
+                }))
             }
         },
         onError(){
-            alert("server error try again!")
+            dispatch(destroyLoaders())
+            dispatch(createAlert({
+                message:"Error Occurred try again!",
+                type:"error"
+            }))
         }
     })
 
 
     const handleResetPassword=async(e)=>{
         e.preventDefault();
+        dispatch(createLoaders())
         await mutation.mutate({userName});
 
 

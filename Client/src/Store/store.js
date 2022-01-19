@@ -26,7 +26,7 @@ export const store=configureStore({
         bookingSlice:bookingSlice.reducer,
         filterBarSlice:filterSlice.reducer,
         forgotPassword:ForgotPasswordSlice.reducer,
-        forgotPasswordProcessIDSlice:forgotPasswordProcessIDSlice.reducer,
+        forgotPasswordProcessID:forgotPasswordProcessIDSlice.reducer,
         verifyForgotPasswordOTPPage:verifyForgotPasswordOTPSlice.reducer
     }
 })
