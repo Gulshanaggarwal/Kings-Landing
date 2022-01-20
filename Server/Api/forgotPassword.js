@@ -10,7 +10,7 @@ const trackResetOTP = require("../Models/trackResetOTP");
 
 router.post("/",
     body('userName').isEmail().normalizeEmail(),
-    async(req, res) => {
+    async (req, res) => {
 
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -20,28 +20,33 @@ router.post("/",
         const { userName } = req.body;
 
         try {
-            await userModel.findOne({ userName }).exec();
+            const user = await userModel.findOne({ userName }).exec();
 
-            const randOTP = randomOTP();
+            if (user) {
+                const randOTP = randomOTP();
 
-            const mailOptions = {
-                from: process.env.COMPANY_EMAIL,
-                to: userName,
-                subject: "Forgot Password | Kings Landing",
-                html: `OTP for Forgot Password ${randOTP}`
+                const mailOptions = {
+                    from: process.env.COMPANY_EMAIL,
+                    to: userName,
+                    subject: "Forgot Password | Kings Landing",
+                    html: `OTP for Forgot Password ${randOTP}`
+                }
+
+                transporter.sendMail(mailOptions, async (err) => {
+                    if (err) res.status(500).json({ status: "server error", message: "Couldn't send OTP, try again!" })
+                    const result = await trackResetOTP.create({ userName, resetOTP: randOTP });
+                    res.status(200).json({ status: "ok", message: "OTP Sent Successfully", processID: result._id })
+
+                })
             }
-
-            transporter.sendMail(mailOptions, async(err) => {
-                if (err) res.status(500).json({ status: "server error", message: "Couldn't send OTP, try again!" })
-                const result=await trackResetOTP.create({ userName, resetOTP: randOTP });
-                res.status(200).json({ status: "ok", message: "OTP Sent Successfully",processID:result._id })
-
-            })
+            else {
+                res.status(401).json({ status: "error", message: "You are not a registered user!" })
+            }
 
 
 
         } catch (error) {
-            res.status(500).json({ status: "ok", message: "Server error! Try again" })
+            res.status(500).json({ status: "error", message: "Server error! Try again" })
 
         }
 
