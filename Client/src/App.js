@@ -8,6 +8,7 @@ import Profile from "./Components/ProtectedRoutes/Profile/profile";
 import LocalStateProvider from "./Store/localStateProvider";
 import Notification from "./Components/Notifications";
 import Loader from "./Components/Loading";
+import EachResidency from "./Components/ProtectedRoutes/EachResidency/eachResidency";
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
             <Route path="/" caseSensitive element={<HomePage />} />
             <Route path="/dashboard" caseSensitive element={<Dashboard />} />
             <Route path="/profile" caseSensitive element={<Profile />} />
+            <Route path="/residency/:residencyID" element={<EachResidency />} />
             <Route path="/privacy-policy" caseSensitive element={<PrivacyPolicy />} />
             <Route path="*" caseSensitive element={<NotFound />} />
           </Routes>

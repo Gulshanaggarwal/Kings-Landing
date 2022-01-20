@@ -3,6 +3,7 @@ import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux"
 import rupeeIcon from "../../Images/rupee-indian.png";
 import { showBookingForm } from "../../features/bookingSlice"
+import { Link, useNavigate } from 'react-router-dom';
 
 
 export default function ShowResults() {
@@ -11,6 +12,7 @@ export default function ShowResults() {
 
     const dispatch = useDispatch();
     const location = useSelector(state => state.filterBarSlice.location);
+    const navigate = useNavigate();
     let residency = [];
 
 
@@ -42,7 +44,7 @@ export default function ShowResults() {
             <section className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3'>
                 {residency.length > 0 && residency.map((ele) => {
                     return (
-                        <div className='w-90P mx-auto my-8 border-1 border-gray-600 rounded-md bg-indigo-50 text-2lsxs 271-300px:text-lsxs 301-330px:text-gtxs 331-360px:text-ls1rem' key={ele._id}>
+                        <div onClick={() => navigate(`/residency/${ele._id}`)} className='w-90P mx-auto my-8 border-1 border-gray-600 rounded-md bg-indigo-50 text-2lsxs 271-300px:text-lsxs 301-330px:text-gtxs 331-360px:text-ls1rem' key={ele._id}>
                             <div className="w-full h-40 sm:h-48 md:h-64 2xl:h-72">
                                 <img src={ele.images[0].url} className='w-full h-full rounded-md' alt={ele.images[0].description} />
                             </div>
@@ -87,7 +89,7 @@ export default function ShowResults() {
                                     <svg xmlns="http://www.w3.org/2000/svg" className='w-4 h-4' viewBox="0 0 24 24"><path d="M3 2h2v20H3zm16 0H6v20h13c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2zm-1 10H9v-2h9v2zm0-4H9V6h9v2z"></path></svg>
                                     <div className='flex flex-wrap'>
                                         {ele.facility.map((item, index) => index < 3 && <span key={index} className='px-1'>{item},</span>)}
-                                        <span>+{ele.facility.length}more...</span>
+                                        <Link to={`/residency/${ele._id}`} className='underline text-blue-500'>+{ele.facility.length}more...</Link>
                                     </div>
                                 </div>
                                 <div className="flex justify-between mt-4">
@@ -98,7 +100,11 @@ export default function ShowResults() {
                                             <span className='px-1 text-xs'>{ele.startingPrice}/month</span>
                                         </div>
                                     </div>
-                                    <button type="button" onClick={() => dispatch(showBookingForm({ data: { residencyId: ele._id, residencyName: ele.name, residencyType: ele.residencyType } }))} className='shadow-2xl rounded-md px-3 h-10  bg-indigo-400 text-xs text-white font-medium'>Book now</button>
+                                    <button type="button" onClick={(e) => {
+                                        e.stopPropagation();
+                                        dispatch(showBookingForm({ data: { residencyId: ele._id, residencyName: ele.name, residencyType: ele.residencyType } }))
+
+                                    }} className='shadow-2xl rounded-md px-3 h-10  bg-indigo-400 text-xs text-white font-medium'>Book now</button>
                                 </div>
                             </div>
                         </div>
