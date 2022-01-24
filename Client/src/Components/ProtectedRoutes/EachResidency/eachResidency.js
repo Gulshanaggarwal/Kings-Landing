@@ -5,6 +5,14 @@ import ProtectedPageHeader from '../../commonHeader/protectedPage';
 import NotFound from '../../NotFound';
 import rupeeIcon from "../../../Images/rupee-indian.png"
 import Footer from "../../Footer/footer"
+import bathroom from "../../../Images/bathroom.png"
+import laundary from "../../../Images/washing-machine.png"
+import lift from "../../../Images/lift.png"
+import ac from "../../../Images/ac.png"
+import breakfast from "../../../Images/breakfast.png"
+import lunch from "../../../Images/food-time.png"
+import dinner from "../../../Images/dinner-time.png"
+import bed from "../../../Images/bed.png"
 
 export default function EachResidency() {
 
@@ -36,10 +44,10 @@ export default function EachResidency() {
                 Go back to view more
             </Link>
         </div>
-        <div className="carousel carousel-center border-1 border-gray-800">
+        <div className="carousel carousel-center border-1 border-gray-800 text-2lsxs 271-300px:text-lsxs 301-330px:text-gtxs 331-360px:text-ls1rem">
             {
-                data.residency.images.map((ele) => (
-                    <div class="carousel-item h-48 mx-px">
+                data.residency.images.map((ele, index) => (
+                    <div key={index} class="carousel-item h-48 mx-px">
                         <img className='' src={ele.url} alt={ele.description} />
                     </div>
                 ))
@@ -67,13 +75,16 @@ export default function EachResidency() {
                 </svg>
                 <p>{data.residency.location}</p>
             </div>
+            <div className="py-4">
+                <button type="button" className='bg-gray-900 text-white font-bold rounded-md p-3'>Book now</button>
+            </div>
             <div className='bg-gray-100 rounded-md px-2 py-4 shadow-inner'>
-                <h4>Available Occupencies</h4>
-                <div className="flex space-x-3 py-4">
+                <h4 className='font-bold text-gtxs'>Available Occupencies</h4>
+                <div className="flex flex-col space-y-4 py-8">
                     {
                         data.residency.residencyType.hostel.length > 0 && data.residency.residencyType.hostel.map((ele) => (
-                            <div className="bg-indigo-300 rounded-lg flex flex-col items-center justify-center p-4">
-                                <img src="https://res.cloudinary.com/stanza-living/image/upload/f_auto,q_auto,w_100/v1598893837/Website/bed.png" className="w-6 h-6" />
+                            <div className="bg-gray-50 shadow-2xl rounded-lg w-5/6 mx-auto flex flex-col items-center  justify-center p-4">
+                                <img src={bed} alt="bed" className="w-6 h-6" />
                                 <span>{ele.roomType}</span>
                                 <div className='flex items-center py-2'>
                                     <img className='w-3 h-3' src={rupeeIcon} alt='rupee-indian' />
@@ -84,8 +95,8 @@ export default function EachResidency() {
                     }
                     {
                         data.residency.residencyType.flat.length > 0 && data.residency.residencyType.flat.map((ele) => (
-                            <div className="bg-indigo-300 rounded-lg flex flex-col items-center justify-center p-4">
-                                <img src="https://res.cloudinary.com/stanza-living/image/upload/f_auto,q_auto,w_100/v1598893837/Website/bed.png" className="w-6 h-6" />
+                            <div className="bg-gray-50 shadow-2xl rounded-lg w-5/6 mx-auto flex flex-col items-center  justify-center p-4">
+                                <img src={bed} alt="bed" className="w-6 h-6" />
                                 <span>{ele.roomType}</span>
                                 <div className='flex items-center py-2'>
                                     <img className='w-3 h-3' src={rupeeIcon} alt='rupee-indian' />
@@ -97,150 +108,96 @@ export default function EachResidency() {
                 </div>
             </div>
             <div className='my-4 rounded-md bg-gray-100 px-2 py-4 shadow-inner'>
-                <h4>Services we provides</h4>
-                <div className='grid grid-cols-5 gap-4 py-4'>
-                    <div>
-                        <div className='flex justify-center items-center py-4 bg-indigo-300 rounded-lg'>
-                            <svg xmlns="http://www.w3.org/2000/svg" className='w-14 h-14' enableBackground="new 0 0 2000 2000" viewBox="0 0 2000 2000"><path d="M1490.4277,998.1401c-0.3008-85.3262-33.6689-165.4995-94.0381-225.8667
-		c-53.5127-53.5127-122.5928-85.7915-197.0254-92.6445v-113.584c0-72.5366-28.4258-140.9102-80.04-192.5249
-		c-51.6152-51.6152-119.9893-80.0405-192.5273-80.0405H782.1348c-72.5361,0-140.9092,28.4258-192.5234,80.0405
-		s-80.04,119.9883-80.04,192.5249v1110.4756c0,16.5684,13.4316,30,30,30s30-13.4316,30-30V566.0449
-		c0-117.209,95.3555-212.5654,212.5635-212.5654h144.6621c117.21,0,212.5674,95.3564,212.5674,212.5654v113.584
-		c-74.4316,6.853-143.5107,39.1323-197.0234,92.645c-60.6416,60.6406-94.0381,141.2671-94.0381,227.0269c0,16.5684,13.4316,30,30,30
-		h582.127c0.0059,0,0.0137,0,0.0195,0c16.5693,0,30-13.4316,30-30C1490.4492,998.9126,1490.4424,998.5249,1490.4277,998.1401z
-		 M910.0156,969.3008c14.9307-129.8687,125.5469-231.0635,259.3486-231.0635c133.8037,0,244.4219,101.1948,259.3525,231.0635
-		H910.0156z"/><path d="M933.5303 1076.7905c-16.5684 0-30 13.4316-30 30v140.126c0 16.5684 13.4316 30 30 30s30-13.4316 30-30v-140.126C963.5303 1090.2222 950.0986 1076.7905 933.5303 1076.7905zM1169.3643 1076.7905c-16.5684 0-30 13.4316-30 30v140.126c0 16.5684 13.4316 30 30 30s30-13.4316 30-30v-140.126C1199.3643 1090.2222 1185.9326 1076.7905 1169.3643 1076.7905zM1405.1982 1076.7905c-16.5684 0-30 13.4316-30 30v140.126c0 16.5684 13.4316 30 30 30s30-13.4316 30-30v-140.126C1435.1982 1090.2222 1421.7666 1076.7905 1405.1982 1076.7905z" /></svg>
+                <h4 className='font-bold text-gtxs'>Services we provides</h4>
+                <div className='grid grid-cols-3 py-8'>
+                    <div className='w-5/6 text-center'>
+                        <div className='bg-gray-50 shadow-2xl py-6 flex justify-center items-center rounded-lg'>
+                            <img src={bathroom} className='w-8 h-8' alt="bathromm" />
                         </div>
-                        <p className='text-center py-2'>Attached Bathroom</p>
+                        <p className='py-2'>Attached bathroom</p>
                     </div>
-                    <div>
-                        <div className='flex justify-center items-center p-2 bg-indigo-300 rounded-lg'>
-
-                            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 16.933 16.933"><path d="M10.847656 1.8515625V2.3808594H11.90625V1.8515625zM8.7304688 1.8515625V2.3808594H9.7890625V1.8515625z" /></svg>
+                    <div className='w-5/6 text-center'>
+                        <div className='bg-gray-50 shadow-2xl py-6 flex justify-center items-center rounded-lg'>
+                            <img src={laundary} className='w-8 h-8' alt="laudary" />
                         </div>
-                        <p className='text-center py-2'>Laundary</p>
+                        <p className='py-2'>Laundary</p>
                     </div>
-                    <div>
-                        <div className='flex justify-center items-center p-2 bg-indigo-300 rounded-lg'>
-
-                            <svg xmlns="http://www.w3.org/2000/svg" className='w-14 h-14' enableBackground="new 0 0 68 68" viewBox="0 0 68 68"><path fill="#010101" d="M60.05347,1H7.94653c-2.20557,0-4,1.79443-4,4v61c0,0.55225,0.44775,1,1,1c50.38961,0,7.69552,0,58.10693,0
-		c0.55225,0,1-0.44775,1-1V5C64.05347,2.79443,62.25903,1,60.05347,1z M12.83862,64.99999V13.89209c0-0.55127,0.44873-1,1-1
-		h16.16162v52.10791H12.83862z M32.00024,64.99999V12.89209h4v52.10791H32.00024z M38.00024,64.99999V12.89209h16.16113
-		c0.55127,0,1,0.44873,1,1v51.10791H38.00024z M62.05347,64.99999h-4.89209V13.89209c0-1.6543-1.3457-3-3-3
-		c-47.73302-0.00403,5.89871-0.00024-40.32275,0c-1.6543,0-3,1.3457-3,3v51.10791H5.94653V5c0-1.10303,0.89697-2,2-2h52.10693
-		c1.10303,0,2,0.89697,2,2V64.99999z"/><path fill="#010101" d="M25.65894 23.36328l-3.53241-3.53241c-.18097-.18115-.43103-.29327-.70734-.29327s-.52637.11212-.70734.29327l-3.53192 3.53241c-.39063.39063-.39063 1.02393 0 1.41406.39061.39061 1.02343.39064 1.41406 0l1.8252-1.8255v7.17413c0 .55225.44775 1 1 1s1-.44775 1-1v-7.17432l1.82568 1.82568c.39063.39063 1.02344.39063 1.41406 0S26.04956 23.7539 25.65894 23.36328zM49.40601 25.88671l-1.8252 1.8252v-7.17432c0-.55225-.44775-1-1-1s-1 .44775-1 1v7.17432l-1.8252-1.8252c-.39063-.39063-1.02344-.39063-1.41406 0s-.39063 1.02344 0 1.41406l3.53192 3.53192c.18461.18486.44595.29327.70734.29327.26125 0 .52262-.10831.70734-.29327l3.53192-3.53192c.39063-.39063.39063-1.02344 0-1.41406S49.79663 25.49609 49.40601 25.88671zM30.49695 4.94604c-1.10474 0-2.00305.89227-2.00305 2.00305 0 1.10468.89832 1.99695 2.00305 1.99695 1.10468 0 2.00299-.89227 2.00299-1.99695C32.49994 5.83831 31.60162 4.94604 30.49695 4.94604zM37.50299 4.94604c-1.10474 0-2.00305.89227-2.00305 2.00305 0 1.10468.89832 1.99695 2.00305 1.99695 1.10468 0 2.00299-.89227 2.00299-1.99695C39.50598 5.83831 38.60767 4.94604 37.50299 4.94604z" /></svg>
+                    <div className='w-5/6 text-center'>
+                        <div className='bg-gray-50 shadow-2xl py-6 flex justify-center items-center rounded-lg'>
+                            <img src={ac} className='w-8 h-8' alt="ac" />
                         </div>
-                        <p className='text-center py-2'>Lift</p>
+                        <p className='py-2'>AC</p>
                     </div>
-                    <div>
-                        <div className='flex justify-center items-center p-2 bg-indigo-300 rounded-lg'>
-
-
-                            <svg xmlns="http://www.w3.org/2000/svg" className='w-14 h-14' enableBackground="new 0 0 70 70" viewBox="0 0 70 70"><path d="M14,37.793457h42c1.6542969,0,3-1.3457031,3-3v-15.75c0-1.6542969-1.3457031-3-3-3H14c-1.6542969,0-3,1.3457031-3,3v15.75
-	C11,36.4477539,12.3457031,37.793457,14,37.793457z M13,19.043457c0-0.5512695,0.4487305-1,1-1h42c0.5512695,0,1,0.4487305,1,1
-	v15.75c0,0.5512695-0.4487305,1-1,1H14c-0.5512695,0-1-0.4487305-1-1V19.043457z"/>
-                                <path d="M22.8125 29.2133789h24.375c.5522461 0 1-.4477539 1-1s-.4477539-1-1-1h-24.375c-.5522461 0-1 .4477539-1 1S22.2602539 29.2133789 22.8125 29.2133789zM20.0849609 33.7133789h29.8300781c.5522461 0 1-.4477539 1-1s-.4477539-1-1-1H20.0849609c-.5522461 0-1 .4477539-1 1S19.5327148 33.7133789 20.0849609 33.7133789zM45.5053711 42.1245117c0-.5522461-.4477539-1-1-1s-1 .4477539-1 1c0 .5786133-.1733398.8193359-.4609375 1.2182617-.3540039.4912109-.8388672 1.1640625-.8388672 2.3886719 0 1.2255859.484375 1.8984375.8378906 2.3901367.2880859.4003906.4619141.6416016.4619141 1.2226563 0 .5805664-.1738281.8222656-.4614258 1.222168-.3540039.4912109-.8383789 1.1645508-.8383789 2.3901367 0 .5522461.4477539 1 1 1s1-.4477539 1-1c0-.5805664.1738281-.8222656.4614258-1.222168.3540039-.4912109.8383789-1.1645508.8383789-2.3901367s-.484375-1.8989258-.8383789-2.390625c-.2875977-.3999023-.4614258-.6416016-.4614258-1.222168 0-.5791016.1738281-.8198242.4614258-1.2192383C45.0205078 44.0214844 45.5053711 43.3491211 45.5053711 42.1245117zM36.6499023 42.1245117c0-.5522461-.4477539-1-1-1s-1 .4477539-1 1c0 .5786133-.1733398.8193359-.4609375 1.2182617-.3540039.4912109-.8388672 1.1640625-.8388672 2.3886719 0 1.2255859.484375 1.8984375.8378906 2.3901367.2880859.4003906.4619141.6416016.4619141 1.2226563 0 .5805664-.1738281.8222656-.4614258 1.222168-.3540039.4912109-.8383789 1.1645508-.8383789 2.3901367 0 .5522461.4477539 1 1 1s1-.4477539 1-1c0-.5805664.1738281-.8222656.4614258-1.222168.3540039-.4912109.8383789-1.1645508.8383789-2.3901367s-.484375-1.8989258-.8383789-2.390625c-.2875977-.3999023-.4614258-.6416016-.4614258-1.222168 0-.5791016.1738281-.8198242.4614258-1.2192383C36.1650391 44.0214844 36.6499023 43.3491211 36.6499023 42.1245117zM27.7944336 42.1245117c0-.5522461-.4477539-1-1-1s-1 .4477539-1 1c0 .5786133-.1733398.8193359-.4609375 1.2182617-.3540039.4912109-.8388672 1.1640625-.8388672 2.3886719 0 1.2255859.484375 1.8984375.8378906 2.3901367.2880859.4003906.4619141.6416016.4619141 1.2226563 0 .5805664-.1738281.8222656-.4614258 1.222168-.3540039.4912109-.8383789 1.1645508-.8383789 2.3901367 0 .5522461.4477539 1 1 1s1-.4477539 1-1c0-.5805664.1738281-.8222656.4614258-1.222168.3540039-.4912109.8383789-1.1645508.8383789-2.3901367s-.484375-1.8989258-.8383789-2.390625c-.2875977-.3999023-.4614258-.6416016-.4614258-1.222168 0-.5791016.1738281-.8198242.4614258-1.2192383C27.3095703 44.0214844 27.7944336 43.3491211 27.7944336 42.1245117zM53.625 23.730957c.5522461 0 1-.4477539 1-1v-1c0-.5522461-.4477539-1-1-1s-1 .4477539-1 1v1C52.625 23.2832031 53.0727539 23.730957 53.625 23.730957z" />
-                            </svg>
+                    <div className='w-5/6 text-center'>
+                        <div className='bg-gray-50 shadow-2xl py-6 flex justify-center items-center rounded-lg'>
+                            <img src={lift} className='w-8 h-8' alt="lift" />
                         </div>
-                        <p className='text-center py-2'>AC</p>
+                        <p className='py-2'>Lift</p>
                     </div>
-                    <div>
-                        <div className='flex justify-center items-center p-2 bg-indigo-300 rounded-lg'>
-
-                            <svg xmlns="http://www.w3.org/2000/svg" className='w-14 h-14' viewBox="0 0 64 64"><g data-name="Layer 22"><path d="M32,0A32,32,0,1,0,64,32,32.036,32.036,0,0,0,32,0Zm0,62A30,30,0,1,1,62,32,30.034,30.034,0,0,1,32,62Z" /><path d="M41.965,34.035a11.245,11.245,0,0,0-19.93,0,11.245,11.245,0,0,0,0,19.93,11.245,11.245,0,0,0,19.93,0,11.245,11.245,0,0,0,0-19.93ZM40.783,52.321a1.014,1.014,0,0,0-.461.461,9.245,9.245,0,0,1-16.644,0,1.014,1.014,0,0,0-.461-.461,9.244,9.244,0,0,1,0-16.642,1.014,1.014,0,0,0,.461-.461,9.245,9.245,0,0,1,16.644,0,1.014,1.014,0,0,0,.461.461,9.244,9.244,0,0,1,0,16.642Z" /><path d="M32 37.474A6.526 6.526 0 1 0 38.526 44 6.533 6.533 0 0 0 32 37.474zm0 11.052A4.526 4.526 0 1 1 36.526 44 4.531 4.531 0 0 1 32 48.526zM58.707 24.293l-16-16a1 1 0 0 0-1.414 0L39 10.586 32.707 4.293a1 1 0 0 0-1.414 0L25 10.586 22.707 8.293a1 1 0 0 0-1.414 0l-16 16A1 1 0 0 0 6 26H58a1 1 0 0 0 .707-1.707zM11.586 24H8.414L22 10.414 23.586 12zm2.828 0L25.707 12.707 32 6.414l6.293 6.293L49.586 24zm38 0l-12-12L42 10.414 55.586 24z" /></g></svg>
+                    <div className='w-5/6 text-center'>
+                        <div className='bg-gray-50 shadow-2xl py-6 flex justify-center items-center rounded-lg'>
+                            <img src={breakfast} className='w-8 h-8' alt="breakfast" />
                         </div>
-                        <p className='text-center py-2'>Breakfast</p>
+                        <p className='py-2'>Breakfast</p>
                     </div>
-                    <div>
-                        <div className='flex justify-center items-center p-2 bg-indigo-300 rounded-lg'>
-
-                            <svg xmlns="http://www.w3.org/2000/svg" className="w-14 h-14" data-name="Layer 1" viewBox="0 0 128 128"><path d="M119,50h-3V44a2,2,0,0,0-2-2V40.18A6.19,6.19,0,0,0,107.82,34h-3.64A6.19,6.19,0,0,0,98,40.18V42H95.13L97,28.27A2,2,0,0,0,95,26H93V24h4a2,2,0,0,0,0-4H92.82A3.74,3.74,0,0,0,89,23.64V26H83a2,2,0,0,0-2,2.27L82.87,42H82a2,2,0,0,0-2,2v6H70V42.8A10,10,0,0,0,78,33V25a2,2,0,0,0-2-2H60a2,2,0,0,0-2,2v8a10,10,0,0,0,8,9.8V50H50.13l6.58-11a2,2,0,0,0-2.2-3c-3,.75-5.88,1.34-8.63,1.81a7,7,0,0,0,.12-1.2,7.48,7.48,0,0,0-7.6-7.33,7.77,7.77,0,0,0-1.07.07A7.69,7.69,0,0,0,23.1,28.27l-5.68-5.68a2,2,0,0,0-2.83,2.83L19,29.8a7.36,7.36,0,0,0-5,6.87,7,7,0,0,0,.12,1.22,39.58,39.58,0,0,1-6.35-1.74A2,2,0,0,0,5.29,39l6.58,11H9A9,9,0,0,0,9,68H55v38H43.5a2,2,0,0,0,0,4h41a2,2,0,0,0,0-4H73V68h46a9,9,0,0,0,0-18Zm-17-9.82A2.19,2.19,0,0,1,104.18,38h3.64A2.19,2.19,0,0,1,110,40.18V42h-8ZM92.71,30,91.09,42H86.91L85.29,30ZM21.6,33.33a3.73,3.73,0,0,1,1.1.17,2,2,0,0,0,1.16.48,2,2,0,0,0,2.57-2.22,2.66,2.66,0,0,1,0-.43,3.61,3.61,0,0,1,7.2,0,2.66,2.66,0,0,1,0,.43,2,2,0,0,0,3,2.06,3.76,3.76,0,0,1,1.86-.5A3.48,3.48,0,0,1,42,36.67a3.14,3.14,0,0,1-.63,1.87,89,89,0,0,1-22.65.11,3.15,3.15,0,0,1-.73-2A3.48,3.48,0,0,1,21.6,33.33Zm100.94,29.2A5,5,0,0,1,119,64H9A5,5,0,1,1,9,54H119A5.07,5.07,0,0,1,122.54,62.54Z" /></svg>
+                    <div className='w-5/6 text-center'>
+                        <div className='bg-gray-50 shadow-2xl py-6 flex justify-center items-center rounded-lg'>
+                            <img src={lunch} className='w-8 h-8' alt="lunch" />
                         </div>
-                        <p className='text-center py-2'>Lunch</p>
+                        <p className='py-2'>Lunch</p>
                     </div>
-                    <div>
-                        <div className='flex justify-center items-center p-2 bg-indigo-300 rounded-lg'>
-
-                            <svg xmlns="http://www.w3.org/2000/svg" className='w-14 h-14' enableBackground="new 0 0 2000 2000" viewBox="0 0 2000 2000"><path d="M1724.5713,1471.7295c-0.1416-0.1289-0.2852-0.2563-0.4297-0.3823l-523.2998-456.3113l87.2969-100.5527
-		c33.1885,13.4434,69.5996,20.4775,106.6064,20.4788c0.0049,0,0.0049,0,0.0098,0c40.5947,0,80.665-8.0864,119.0879-24.0327
-		c39.6523-16.4568,75.3975-40.4399,106.2422-71.2842l77.0566-77.0588c57.6885-57.6899,91.4326-132.8894,95.0176-211.7463
-		c1.7568-38.6475-3.8447-76.0356-16.6494-111.1257c-13.3584-36.6077-33.9639-69.0017-61.2451-96.2822
-		c-50.4307-50.4314-119.2568-78.2051-193.7998-78.2051c-40.6045,0-80.6777,8.0874-119.1074,24.0374
-		c-39.6553,16.459-75.4023,40.4448-106.249,71.292l-77.0566,77.0564c-47.6602,47.6594-78.9668,107.0547-90.5352,171.7651
-		c-9.8232,54.9463-4.2207,110.947,15.7051,160.1821l-112.1943,97.4031L880.3984,735.615
-		c18.7456-51.0588,21.8628-110.0125,8.5791-168.522c-15.3994-67.8293-50.9678-131.1108-102.8599-183.0029L618.3442,216.3167
-		c-11.7158-11.7158-30.7109-11.7158-42.4268,0c-11.7153,11.7156-11.7153,30.7107,0,42.4263l167.7734,167.7737
-		c87.2212,87.2207,117.4839,212.4678,73.5938,304.5786c-5.79,12.1504-2.7783,26.6697,7.3657,35.5154L985.2803,906.679
-		l-83.7446,72.7039L766.6128,824.6499c-8.8457-10.1445-23.3657-13.1565-35.5166-7.366
-		c-92.1084,43.8918-217.3579,13.6328-304.5801-73.5879L258.7427,575.9207c-11.7153-11.7158-30.7109-11.7156-42.4263-0.0002
-		c-11.7158,11.7156-11.7158,30.7107-0.0005,42.4265l167.7739,167.7756c51.8926,51.8916,115.1743,87.4592,183.0034,102.8579
-		c58.5098,13.2832,117.4644,10.1648,168.5234-8.5828l120.6108,138.3201l-531.2241,461.1899
-		c-0.1221,0.106-0.2432,0.2129-0.3638,0.3208c-36.9482,33.1406-58.0254,78.2476-59.3491,127.0117
-		c-1.3232,48.7603,17.2744,94.9404,52.3706,130.0356l2.7656,2.7651c33.8115,33.8096,78.3042,52.4297,125.2832,52.4297
-		c49.8672,0,97.8911-21.6558,131.7578-59.4146c0.1079-0.1201,0.2148-0.2412,0.3208-0.3633l449.522-517.7778l444.0371,509.2236
-		c0.126,0.1445,0.2539,0.2876,0.3828,0.4297c37.8936,41.811,90.1074,66.5391,143.252,67.8442
-		c1.5049,0.0371,3.001,0.0552,4.499,0.0552c46.0732,0,88.8242-17.4546,120.7998-49.4307l2.7607-2.7622
-		c33.0107-33.0103,50.5459-77.5059,49.373-125.2905C1791.1113,1561.8403,1766.3828,1509.626,1724.5713,1471.7295z
-		M532.6528,1693.1606c-22.8184,25.3506-53.6865,39.3101-86.9429,39.3101c-30.9526,0-60.3789-12.3789-82.8599-34.8599
-		l-2.7661-2.7646c-23.3228-23.3223-35.6875-53.8569-34.8154-85.9785c0.8696-32.0483,14.8105-6F1.8057,39.2593-83.8164
-		l553.5884-480.6062c0.0669-0.0571,0.1357-0.1101,0.2021-0.168c0.0503-0.0439,0.0967-0.0906,0.147-0.1348l281.0298-243.9802
-		c10.4395-9.0632,13.334-24.0867,7.0088-36.3794c-45.96-89.3259-23.7656-206.0054,53.9736-283.7434l77.0566-77.0569
-		c49.415-49.4148,116.0898-77.7556,182.9307-77.7556c58.5166,0,112.2754,21.5327,151.374,60.6313
-		c87.4443,87.4456,79.7627,237.4126-17.124,334.302l-77.0566,77.0586c-49.4102,49.4089-116.0781,77.7451-182.9111,77.7432
-		c-35.7471-0.0012-70.6133-8.2185-100.8311-23.7637c-12.292-6.3245-27.3154-3.4287-36.3779,7.0095L532.6528,1693.1606z
-		 M1700.6104,1697.854l-2.7607,2.7627c-21.2822,21.2813-50.1826,32.5811-81.3936,31.814
-		c-36.7217-0.9019-73.1865-18.3774-100.0869-47.9551l-449.3418-515.3081l94.4785-108.8237l522.9736,456.0259
-		c29.5791,26.9019,47.0527,63.3657,47.9531,100.0864C1733.1982,1647.6602,1721.8994,1676.5654,1700.6104,1697.854z"/><path d="M693.4067 620.8496c5.8579 5.8579 13.5356 8.7869 21.2134 8.7869s15.3555-2.929 21.2134-8.7869c11.7158-11.7158 11.7158-30.7107 0-42.4263L496.0356 338.6257c-11.7158-11.7158-30.7109-11.7158-42.4268 0s-11.7158 30.7107 0 42.4265L693.4067 620.8496zM578.4199 735.8337c5.8579 5.8579 13.5356 8.7869 21.2134 8.7869s15.3555-2.929 21.2134-8.7869c11.7153-11.7156 11.7153-30.7107 0-42.4263L381.0513 453.6118c-11.7158-11.7158-30.7109-11.7158-42.4268 0-11.7153 11.7156-11.7158 30.7107 0 42.4263L578.4199 735.8337z" /></svg>
+                    <div className='w-5/6 text-center'>
+                        <div className='bg-gray-50 shadow-2xl py-6 flex justify-center items-center rounded-lg'>
+                            <img src={dinner} className='w-8 h-8' alt="dinner" />
                         </div>
-                        <p className='text-center py-2'>Dinner</p>
+                        <p className='py-2'>Dinner</p>
                     </div>
-
                 </div>
             </div>
             <div>
-                <h4>Things to ponder</h4>
+                <h4 className='font-bold text-gtxs'>Things to ponder</h4>
                 <ul className='space-y-2 py-4'>
-                    <li className='flex'>
+                    <li className='flex space-x-2'>
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                         </svg>
-                        <span className='px-3'>CCTV surveillance</span>
+                        <span className='block'>CCTV surveillance</span>
                     </li>
-                    <li className='flex'>
+                    <li className='flex space-x-2'>
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                         </svg>
-                        <span className='px-3'>Biometric and register system</span>
+                        <span className='block'>Biometric and register system</span>
                     </li>
-                    <li className='flex'>
+                    <li className='flex space-x-2'>
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                         </svg>
-                        <span className='px-3'>Electricity Bill excluded</span>
+                        <span className='block'>Electricity Bill excluded</span>
                     </li>
-                    <li className='flex'>
+                    <li className='flex space-x-2'>
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                         </svg>
-                        <span className='px-3'>Fire safety provision and first aid available</span>
+                        <span className='block'>Fire safety provision and first aid available</span>
                     </li>
-                    <li className='flex'>
+                    <li className='flex space-x-2'>
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                         </svg>
-                        <span className='px-3'>Parental stay option depend on hostels</span>
+                        <span className='block'>Parental stay option depend on hostels</span>
                     </li>
-                    <li className='flex'>
+                    <li className='flex space-x-2'>
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                         </svg>
-                        <span className='px-3'>Sunday live excercise</span>
+                        <span className='block'>Sunday live excercise</span>
                     </li>
-                    <li className='flex'>
+                    <li className='flex space-x-2'>
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                         </svg>
-                        <span className='px-3'>24*7 Security</span>
+                        <span className='block'>24*7 Security</span>
                     </li>
                 </ul>
             </div>
