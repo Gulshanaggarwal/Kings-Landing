@@ -20,6 +20,8 @@ import lunch from "../../../Images/food-time.png"
 import dinner from "../../../Images/dinner-time.png"
 import { showBookingForm } from '../../../features/bookingSlice';
 import BookingForm from '../bookingForm';
+import ScrollTop from '../../ScrollTop/scrollTop';
+import Bouncing from '../../Loading/bouncing';
 
 
 export default function EachResidency() {
@@ -35,7 +37,7 @@ export default function EachResidency() {
 
     const { isLoading, data, error } = useQuery("eachHostel", () => fetch(`http://localhost:5000/each-residency/${residencyID}`).then((res) => res.json()));
 
-    if (hookLoading) return <h1>Loading....</h1>
+    if (hookLoading) return <Bouncing />
 
     if (hookData && hookData.status === "error") {
         navigate("/");
@@ -44,7 +46,7 @@ export default function EachResidency() {
         navigate("/");
     }
 
-    if (isLoading) return <p>Loading...</p>
+    if (isLoading) return <Bouncing />
 
     if (error) return <NotFound />
 
@@ -82,16 +84,16 @@ export default function EachResidency() {
             <div className="flex justify-between">
                 <h3 className='font-bold text-xs 301-330px:text-base 331-360px:text-base'>{data.residency.name}</h3>
                 {
-                    data.residency.residencyType.hostel.length > 0 && (data.residency.residencyFor === "Boys" ? <div className="flex space-x-px items-center">
-                        <img className='w-6 h-6' src={boy} alt="boy" />
-                        <p className='font-bold'>Boys</p>
+                    data.residency.residencyType.hostel.length > 0 && (data.residency.residencyFor === "Boys" ? <div className="flex items-center space-x-px">
+                        <img className='w-4 h-4' src={boy} alt="boy" />
+                        <p className='font-bold text-lsxs'>Boys</p>
                     </div> : <div className="flex space-x-1 items-center">
-                        <img className='w-6 h-6' src={girl} alt="girl" />
-                        <p className='font-bold'>Girls</p>
+                        <img className='w-4 h-4' src={girl} alt="girl" />
+                        <p className='font-bold text-lsxs'>Girls</p>
                     </div>)
                 }
             </div>
-            <div className="py-2 flex items-center space-x-1">
+            <div className="py-3 flex items-center space-x-1">
 
                 <img src={locationIcon} alt="location" className='w-6 h-6' />
                 <p>{data.residency.location}</p>
@@ -100,26 +102,26 @@ export default function EachResidency() {
                 <button type="button" onClick={() => dispatch(showBookingForm({ data: { residencyId: data.residency._id, residencyName: data.residency.name, residencyType: data.residency.residencyType } }))} className='bg-indigo-500 text-white font-bold rounded-md p-3'>Book now</button>
             </div>
             <div className='bg-gray-100 rounded-md px-2 py-4 shadow-inner'>
-                <h4 className='font-extrabold text-ls1rem text-indigo-600 text-center py-4'>Available Occupencies</h4>
-                <div className="flex flex-col space-y-4 py-8">
+                <h4 className='font-extrabold text-ls1rem text-indigo-600  py-4'>Available Occupencies</h4>
+                <div className="grid grid-cols-2 gap-4 py-8">
                     {
                         data.residency.residencyType.hostel.length > 0 && data.residency.residencyType.hostel.map((ele, index) => (
-                            <div key={index} className="bg-gray-50 shadow-2xl rounded-lg w-2/3 mx-auto flex flex-col items-center justify-center py-6">
-                                <span className="font-bold text-gtxs text-indigo-500">{ele.roomType}</span>
+                            <div key={index} className="bg-gray-50 shadow-2xl rounded-lg   flex flex-col items-center justify-center py-6">
+                                <span className="font-bold text-gtxs text-indigo-400">{ele.roomType}</span>
                                 <div className='flex items-center py-2'>
-                                    <img className='w-3 h-3' src={rupeeIcon} alt='rupee-indian' />
-                                    <span className='px text-gtxs'>{ele.price}/month</span>
+                                    <img className='w-2 h-2' src={rupeeIcon} alt='rupee-indian' />
+                                    <span className='px text-lsxs'>{ele.price}/month</span>
                                 </div>
                             </div>
                         ))
                     }
                     {
                         data.residency.residencyType.flat.length > 0 && data.residency.residencyType.flat.map((ele, index) => (
-                            <div key={index} className="bg-gray-50 shadow-2xl rounded-lg w-2/3 mx-auto flex flex-col items-center justify-center py-6">
-                                <span className="font-bold text-gtxs text-indigo-500">{ele.roomType}</span>
+                            <div key={index} className="bg-gray-50 shadow-2xl rounded-lg   flex flex-col items-center justify-center py-6">
+                                <span className="font-bold text-gtxs text-indigo-400">{ele.roomType}</span>
                                 <div className='flex items-center py-2'>
-                                    <img className='w-3 h-3' src={rupeeIcon} alt='rupee-indian' />
-                                    <span className='px text-gtxs'>{ele.price}/month</span>
+                                    <img className='w-2 h-2' src={rupeeIcon} alt='rupee-indian' />
+                                    <span className='px text-lsxs'>{ele.price}/month</span>
                                 </div>
                             </div>
                         ))
@@ -128,44 +130,44 @@ export default function EachResidency() {
             </div>
             <div className='my-4 rounded-md bg-gray-100 px-2 py-4 shadow-inner'>
                 <h4 className='font-extrabold text-ls1rem text-indigo-600 text-center py-4'>Services we provide</h4>
-                <div className='grid grid-cols-2 gap-y-4 py-8'>
-                    <div className='w-5/6 text-center'>
+                <div className='grid grid-cols-2 gap-x-2 gap-y-4 py-8 w-90P mx-auto'>
+                    <div className='w-90P text-center'>
                         <div className='bg-gray-50 shadow-2xl py-6 flex justify-center items-center rounded-lg'>
                             <img src={bathroom} className='w-8 h-8' alt="bathromm" />
                         </div>
                         <p className='py-2'>Attached bathroom</p>
                     </div>
-                    <div className='w-5/6 text-center'>
+                    <div className='w-90P text-center'>
                         <div className='bg-gray-50 shadow-2xl py-6 flex justify-center items-center rounded-lg'>
                             <img src={laundary} className='w-8 h-8' alt="laudary" />
                         </div>
                         <p className='py-2'>Laundary</p>
                     </div>
-                    <div className='w-5/6 text-center'>
+                    <div className='w-90P text-center'>
                         <div className='bg-gray-50 shadow-2xl py-6 flex justify-center items-center rounded-lg'>
                             <img src={ac} className='w-8 h-8' alt="ac" />
                         </div>
                         <p className='py-2'>AC</p>
                     </div>
-                    <div className='w-5/6 text-center'>
+                    <div className='w-90P text-center'>
                         <div className='bg-gray-50 shadow-2xl py-6 flex justify-center items-center rounded-lg'>
                             <img src={lift} className='w-8 h-8' alt="lift" />
                         </div>
                         <p className='py-2'>Lift</p>
                     </div>
-                    <div className='w-5/6 text-center'>
+                    <div className='w-90P text-center'>
                         <div className='bg-gray-50 shadow-2xl py-6 flex justify-center items-center rounded-lg'>
                             <img src={breakfast} className='w-8 h-8' alt="breakfast" />
                         </div>
                         <p className='py-2'>Breakfast</p>
                     </div>
-                    <div className='w-5/6 text-center'>
+                    <div className='w-90P text-center'>
                         <div className='bg-gray-50 shadow-2xl py-6 flex justify-center items-center rounded-lg'>
                             <img src={lunch} className='w-8 h-8' alt="lunch" />
                         </div>
                         <p className='py-2'>Lunch</p>
                     </div>
-                    <div className='w-5/6 text-center'>
+                    <div className='w-90P text-center'>
                         <div className='bg-gray-50 shadow-2xl py-6 flex justify-center items-center rounded-lg'>
                             <img src={dinner} className='w-8 h-8' alt="dinner" />
                         </div>
@@ -183,39 +185,49 @@ export default function EachResidency() {
                         <span className='block'>CCTV surveillance</span>
                     </li>
                     <li className='flex space-x-2'>
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                        </svg>
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                            </svg>
+                        </div>
                         <span className='block'>Biometric and register system</span>
                     </li>
                     <li className='flex space-x-2'>
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <div><svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                        </svg>
+                        </svg></div>
                         <span className='block'>Electricity Bill excluded</span>
                     </li>
                     <li className='flex space-x-2'>
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                        </svg>
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                            </svg>
+                        </div>
                         <span className='block'>Fire safety provision and first aid available</span>
                     </li>
                     <li className='flex space-x-2'>
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                        </svg>
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                            </svg>
+                        </div>
                         <span className='block'>Parental stay option depend on hostels</span>
                     </li>
                     <li className='flex space-x-2'>
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                        </svg>
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                            </svg>
+                        </div>
                         <span className='block'>Sunday live excercise</span>
                     </li>
                     <li className='flex space-x-2'>
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                        </svg>
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                            </svg>
+                        </div>
                         <span className='block'>24*7 Security</span>
                     </li>
                 </ul>
@@ -224,5 +236,6 @@ export default function EachResidency() {
         </div>
         <Footer />
         {bookingForm && <BookingForm userName={hookData.user.userName} />}
+        <ScrollTop />
     </div >
 }

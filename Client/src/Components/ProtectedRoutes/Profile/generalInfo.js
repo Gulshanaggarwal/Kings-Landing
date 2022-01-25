@@ -1,8 +1,9 @@
-import React, { useState ,useEffect} from 'react'
-import { useMutation, useQuery , useQueryClient} from "react-query";
-import {useDispatch} from "react-redux";
-import {createLoaders, destroyLoaders} from "../../../features/loadingSlice"
+import React, { useState, useEffect } from 'react'
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useDispatch } from "react-redux";
+import { createLoaders, destroyLoaders } from "../../../features/loadingSlice"
 import { createAlert } from '../../../features/notificationSlice';
+import Bouncing from '../../Loading/bouncing';
 
 
 const updateInfo = (body) => {
@@ -16,72 +17,72 @@ const updateInfo = (body) => {
 
 }
 
-export default function GeneralInfo({fullName, userName }) {
+export default function GeneralInfo({ fullName, userName }) {
 
     const [fName, setFullName] = useState(fullName);
     const [phoneNumber, setPhoneNumber] = useState("");
     const [homeState, setHomeState] = useState("");
     const dispatch = useDispatch();
 
-    const queryClient=useQueryClient();
+    const queryClient = useQueryClient();
 
 
-    const mutation = useMutation((body) => updateInfo(body),{
-        onSuccess(data){
+    const mutation = useMutation((body) => updateInfo(body), {
+        onSuccess(data) {
             dispatch(destroyLoaders())
-            const {message}=data;
-            if(data.status==="ok"){
+            const { message } = data;
+            if (data.status === "ok") {
                 dispatch(createAlert({
                     message,
-                    type:"success"
+                    type: "success"
 
                 }))
                 queryClient.invalidateQueries('findProfileData');
             }
-            else{
+            else {
                 dispatch(createAlert({
                     message,
-                    type:"error"
+                    type: "error"
 
                 }))
-               
+
             }
 
         },
-        onError(){
+        onError() {
             dispatch(createAlert({
-                message:"Error occurred try again!",
-                type:"error"
+                message: "Error occurred try again!",
+                type: "error"
 
             }))
         }
     });
 
-    const {isLoading,data}=useQuery("findProfileData",()=>fetch(`https://backend-kingslanding.herokuapp.com/getUpdateInfo/${userName}`).then((res)=>res.json()),{
-        refetchOnMount:false
+    const { isLoading, data } = useQuery("findProfileData", () => fetch(`https://backend-kingslanding.herokuapp.com/getUpdateInfo/${userName}`).then((res) => res.json()), {
+        refetchOnMount: false
     })
 
     useEffect(() => {
-        if(data){
-            const {phoneNumber:ph,homeState:hs}=data.user;
+        if (data) {
+            const { phoneNumber: ph, homeState: hs } = data.user;
             setPhoneNumber(ph);
             setHomeState(hs)
         }
-    },[data])
+    }, [data])
 
-    if(isLoading) return <p>Loading....</p>
+    if (isLoading) return <Bouncing />
 
     const handleUpdateInfo = async (e) => {
         e.preventDefault();
         dispatch(createLoaders());
 
 
-        await mutation.mutate({ fullName: fName, phoneNumber, homeState,userName });
-        
+        await mutation.mutate({ fullName: fName, phoneNumber, homeState, userName });
+
     }
 
 
-    
+
 
     return data && (
         <section className="px-4 pt-16 text-xs sm:px-16 sm:w-5/6 sm:text-sm">
@@ -102,11 +103,11 @@ export default function GeneralInfo({fullName, userName }) {
                 </div>
                 <div className="flex flex-col my-2">
                     <label className="py-2">Phone Number</label>
-                    <input type="text" value={phoneNumber}  className="px-2 py-2 rounded-md outline-none border-1 border-gray-500" placeholder="" onChange={(e) => setPhoneNumber(e.target.value.trim())} />
+                    <input type="text" value={phoneNumber} className="px-2 py-2 rounded-md outline-none border-1 border-gray-500" placeholder="" onChange={(e) => setPhoneNumber(e.target.value.trim())} />
                 </div>
                 <div className="flex flex-col my-2">
                     <label className="py-2">Home State</label>
-                    <input type="text" value={homeState}  className="px-2 py-2 rounded-md outline-none border-1 border-gray-500" placeholder="" onChange={(e) => setHomeState(e.target.value.trim())} />
+                    <input type="text" value={homeState} className="px-2 py-2 rounded-md outline-none border-1 border-gray-500" placeholder="" onChange={(e) => setHomeState(e.target.value.trim())} />
                 </div>
                 <button onClick={handleUpdateInfo} className="bg-indigo-500 text-white font-medium rounded-md mt-3 px-4 py-3 shadow-2xl">Update Info</button>
             </form>

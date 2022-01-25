@@ -6,6 +6,7 @@ import { showBookingForm } from "../../features/bookingSlice"
 import { Link, useNavigate } from 'react-router-dom';
 import bed from "../../Images/bed.png"
 import locationIcon from "../../Images/location.png"
+import Bouncing from '../Loading/bouncing';
 
 
 export default function ShowResults() {
@@ -25,7 +26,7 @@ export default function ShowResults() {
     });
 
 
-    if (isLoading) return <h2>Loading ....</h2>
+    if (isLoading) return <Bouncing />
     if (data) {
         residency = [...data.data]
     }
