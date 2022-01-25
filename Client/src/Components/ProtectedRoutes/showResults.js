@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux"
 import rupeeIcon from "../../Images/rupee-indian.png";
 import { showBookingForm } from "../../features/bookingSlice"
 import { Link, useNavigate } from 'react-router-dom';
+import bed from "../../Images/bed.png"
+import locationIcon from "../../Images/location.png"
 
 
 export default function ShowResults() {
@@ -14,6 +16,7 @@ export default function ShowResults() {
     const location = useSelector(state => state.filterBarSlice.location);
     const navigate = useNavigate();
     let residency = [];
+
 
 
 
@@ -65,23 +68,20 @@ export default function ShowResults() {
 
                                 <div className="py-2 flex items-center space-x-1">
 
-                                    <svg className="svg-icon w-4 h-4 block" viewBox="0 0 20 20">
-                                        <path fill="none" d="M10,0.186c-3.427,0-6.204,2.778-6.204,6.204c0,5.471,6.204,6.806,6.204,13.424c0-6.618,6.204-7.953,6.204-13.424C16.204,2.964,13.427,0.186,10,0.186z M10,14.453c-0.66-1.125-1.462-2.076-2.219-2.974C6.36,9.797,5.239,8.469,5.239,6.39C5.239,3.764,7.374,1.63,10,1.63c2.625,0,4.761,2.135,4.761,4.761c0,2.078-1.121,3.407-2.541,5.089C11.462,12.377,10.66,13.328,10,14.453z"></path>
-                                        <circle fill="none" cx="10" cy="5.67" r="1.608"></circle>
-                                    </svg>
+                                    <img src={locationIcon} alt="location" className='w-6 h-6' />
                                     <p>{ele.location}</p>
                                 </div>
 
                                 {
-                                    ele.residencyType.hostel.length > 0 ? <div className='flex items-center my-2'>
-                                        <img src="https://res.cloudinary.com/stanza-living/image/upload/f_auto,q_auto,w_100/v1598893837/Website/bed.png" className="w-4 h-4" />
+                                    ele.residencyType.hostel.length > 0 ? <div className='flex items-center my-2 space-x-1'>
+                                        <img src={bed} alt="bed" className="w-4 h-4" />
                                         {
-                                            ele.residencyType.hostel.map((item, index) => <span key={index} className='px-1'>{item.roomType},</span>)
+                                            ele.residencyType.hostel.map((item, index) => <span key={index} className='px-1 font-bold'>{item.roomType}</span>)
                                         }
-                                    </div> : <div className='flex items-center my-2'>
-                                        <img src="https://res.cloudinary.com/stanza-living/image/upload/f_auto,q_auto,w_100/v1598893837/Website/bed.png" className="w-4 h-4" />
+                                    </div> : <div className='flex items-center my-2 space-x-2'>
+                                        <img src={bed} alt="bed" className="w-4 h-4" />
                                         {
-                                            ele.residencyType.flat.map((item, index) => <span key={index} className='px-1'>{item.roomType},</span>)
+                                            ele.residencyType.flat.map((item, index) => <span key={index} className='px-1 font-bold'>{item.roomType}</span>)
                                         }
                                     </div>
                                 }
