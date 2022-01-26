@@ -3,21 +3,24 @@ import Select from "react-select";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { hideBookingForm } from '../../features/bookingSlice';
 import { useMutation } from 'react-query';
-import {createAlert} from "../../features/notificationSlice"
+import { createAlert } from "../../features/notificationSlice"
 import { createLoaders, destroyLoaders } from '../../features/loadingSlice';
 
 
 const bookRequest = (body) => {
-    return fetch("https://backend-kingslanding.herokuapp.com/book-request", {
+
+    const token = localStorage.getItem("__auth__token");
+    return fetch("http://localhost:5000/book-request", {
         method: "POST",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "x-access-token": token
         },
         body: JSON.stringify(body)
     }).then((res) => res.json())
 }
 
-export default function BookingForm({userName}) {
+export default function BookingForm() {
 
     const { residencyId, residencyName, residencyType } = useSelector((state) => state.bookingSlice.data, shallowEqual);
     const dispatch = useDispatch();
@@ -40,41 +43,41 @@ export default function BookingForm({userName}) {
     const [currResidency, setCurrResidency] = useState(residencyName);
     const [selectCategory, setSelectCategory] = useState(categoryOptions[0].value);
 
-    const mutation = useMutation((body) => bookRequest(body),{
-        onSuccess(data){
+    const mutation = useMutation((body) => bookRequest(body), {
+        onSuccess(data) {
             dispatch(destroyLoaders());  //destroy laoding
-            const {message}=data;
-            if(data.status==="ok"){
+            const { message } = data;
+            if (data.status === "ok") {
                 dispatch(createAlert({
                     message,
                     type: "success"
-                  }))
-                
+                }))
+
             }
-            else{
+            else {
                 dispatch(createAlert({
                     message,
                     type: "error"
-                  }))
+                }))
             }
         },
-        onError(){
+        onError() {
             dispatch(destroyLoaders());
             dispatch(createAlert({
-                message:"Error occurred try again!",
+                message: "Error occurred try again!",
                 type: "error"
-              }))
-            
+            }))
+
         }
     })
 
 
 
-    const handleRequest=async(e)=>{
+    const handleRequest = async (e) => {
         e.preventDefault();
         dispatch(createLoaders());  //active loading component
 
-        await mutation.mutate({userName,fullName:fName,phoneNumber:phNumber,residencyId,residency:currResidency,category:selectCategory});
+        await mutation.mutate({ fullName: fName, phoneNumber: phNumber, residencyId, residency: currResidency, category: selectCategory });
 
 
 
@@ -108,7 +111,7 @@ export default function BookingForm({userName}) {
                     </div>
                     <div className='flex flex-col space-y-2'>
                         <label>Select Category</label>
-                        <Select  options={categoryOptions} onChange={(ele) => setSelectCategory(ele.value)} />
+                        <Select options={categoryOptions} onChange={(ele) => setSelectCategory(ele.value)} />
                     </div>
                     <button type="submit" onClick={handleRequest} className='py-3 rounded-md text-white font-medium bg-indigo-500 w-full'>Book Now</button>
                 </form>

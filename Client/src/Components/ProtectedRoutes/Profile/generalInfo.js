@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { createLoaders, destroyLoaders } from "../../../features/loadingSlice"
 import { createAlert } from '../../../features/notificationSlice';
 import Bouncing from '../../Loading/bouncing';
-
+import { useNavigate } from "react-router-dom"
 
 const updateInfo = (body) => {
 
@@ -26,6 +26,7 @@ export default function GeneralInfo({ fullName, userName }) {
     const [phoneNumber, setPhoneNumber] = useState("");
     const [homeState, setHomeState] = useState("");
     const dispatch = useDispatch();
+    const navigate = useNavigate("");
 
     const queryClient = useQueryClient();
 
@@ -61,7 +62,12 @@ export default function GeneralInfo({ fullName, userName }) {
         }
     });
 
-    const { isLoading, data } = useQuery("findProfileData", () => fetch(`https://backend-kingslanding.herokuapp.com/getUpdateInfo/${userName}`).then((res) => res.json()), {
+    const { isLoading, data } = useQuery("findProfileData", () => fetch(`https://backend-kingslanding.herokuapp.com/getUpdateInfo/${userName}`, {
+        headers: {
+            "x-access-token": localStorage.getItem("__auth__token")
+        }
+
+    }).then((res) => res.json()), {
         refetchOnMount: false
     })
 
@@ -74,6 +80,7 @@ export default function GeneralInfo({ fullName, userName }) {
     }, [data])
 
     if (isLoading) return <Bouncing />
+    if (data && data.status === "error") navigate("/");
 
     const handleUpdateInfo = async (e) => {
         e.preventDefault();
@@ -87,7 +94,7 @@ export default function GeneralInfo({ fullName, userName }) {
 
 
 
-    return data && (
+    return data && data.status === "ok" && (
         <section className="px-4 pt-16 text-xs sm:px-16 sm:w-5/6 sm:text-sm">
             <h2 className="font-medium text-2xl">General information</h2>
             <p className="font-Roboto pt-2 pb-4">Keep upto date your profile to get latest updates</p>

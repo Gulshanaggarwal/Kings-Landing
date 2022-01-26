@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux"
-import useVerifyJwt from '../../../Hooks/verifyJwt';
 import ProtectedPageHeader from '../../commonHeader/protectedPage';
 import NotFound from '../../NotFound';
 import rupeeIcon from "../../../Images/rupee-indian.png"
@@ -31,24 +30,19 @@ export default function EachResidency() {
     const dispatch = useDispatch();
 
     const navigate = useNavigate("");
-    const { isLoading: hookLoading, data: hookData, error: hookError } = useVerifyJwt();
 
 
 
-    const { isLoading, data, error } = useQuery("eachHostel", () => fetch(`http://localhost:5000/each-residency/${residencyID}`).then((res) => res.json()));
+    const { isLoading, data, error } = useQuery("eachHostel", () => fetch(`http://localhost:5000/each-residency/${residencyID}`, {
+        headers: {
+            "x-access-token": localStorage.getItem("__auth__token")
+        }
+    }).then((res) => res.json()));
 
-    if (hookLoading) return <Bouncing />
-
-    if (hookData && hookData.status === "error") {
-        navigate("/");
-    }
-    if (hookError) {
-        navigate("/");
-    }
 
     if (isLoading) return <Bouncing />
 
-    if (error) return <NotFound />
+    if (error || data.status === "error") return <NotFound />
 
 
     return data && data.status === "ok" && <div>
@@ -235,7 +229,7 @@ export default function EachResidency() {
             </div>
         </div>
         <Footer />
-        {bookingForm && <BookingForm userName={hookData.user.userName} />}
+        {bookingForm && <BookingForm />}
         <ScrollTop />
     </div >
 }
