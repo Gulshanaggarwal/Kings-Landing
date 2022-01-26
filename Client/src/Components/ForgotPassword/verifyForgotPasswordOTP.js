@@ -1,74 +1,74 @@
-import {useState} from 'react'
-import {useMutation} from "react-query";
-import { useSelector,useDispatch } from 'react-redux';
+import { useState } from 'react'
+import { useMutation } from "react-query";
+import { useSelector, useDispatch } from 'react-redux';
 import { createLoaders, destroyLoaders } from '../../features/loadingSlice';
 import { showLogin } from '../../features/loginSlice';
 import { createAlert } from '../../features/notificationSlice';
 import { hideForgotPasswordOTPPage } from '../../features/verifyForgotPasswordOTPSlice';
 
 
-const verifyPassword=(body)=>{
-    return fetch("http://localhost:5000/verify-forgot-password",{
-        method:"POST",
-        headers:{
-            "Content-Type":"application/json"
+const verifyPassword = (body) => {
+    return fetch("http://localhost:5000/verify-forgot-password", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
         },
-        body:JSON.stringify(body)
-    }).then(res=>res.json())
+        body: JSON.stringify(body)
+    }).then(res => res.json())
 
 }
 
 export default function VerifyForgotPasswordOTP() {
 
-    const [OTP,setOTP]=useState("");
-    const [newPassword,setNewPassword]=useState("");
-    const [confirmNewPassword,setConfirmNewPassword]=useState("");
-    const processID=useSelector((state)=>state.forgotPasswordProcessID.forgotPasswordProcessID);
+    const [OTP, setOTP] = useState("");
+    const [newPassword, setNewPassword] = useState("");
+    const [confirmNewPassword, setConfirmNewPassword] = useState("");
+    const processID = useSelector((state) => state.forgotPasswordProcessID.forgotPasswordProcessID);
 
-    console.log("pid",processID);
+    console.log("pid", processID);
 
-    const dispatch=useDispatch();
+    const dispatch = useDispatch();
 
-    const mutation=useMutation((body)=>verifyPassword(body),{
-        onSuccess(data){
+    const mutation = useMutation((body) => verifyPassword(body), {
+        onSuccess(data) {
             dispatch(destroyLoaders())
-            const {status,message}=data;
-            if(status==="ok"){
-               dispatch(createAlert({
-                   message,
-                   type:"success"
-               }))
-               dispatch(hideForgotPasswordOTPPage());
-               dispatch(showLogin());
-            }
-            else{
+            const { status, message } = data;
+            if (status === "ok") {
                 dispatch(createAlert({
                     message,
-                    type:"error"
+                    type: "success"
+                }))
+                dispatch(hideForgotPasswordOTPPage());
+                dispatch(showLogin());
+            }
+            else {
+                dispatch(createAlert({
+                    message,
+                    type: "error"
                 }))
             }
         },
-        onError(){
+        onError() {
             dispatch(destroyLoaders())
             dispatch(createAlert({
-                message:"Error Occurred try again!",
-                type:"error"
+                message: "Error Occurred try again!",
+                type: "error"
             }))
         }
     });
 
 
 
-    const handleVerify=async(e)=>{
+    const handleVerify = async (e) => {
         e.preventDefault();
-        if(newPassword===confirmNewPassword){
+        if (newPassword === confirmNewPassword) {
             dispatch(createLoaders())
-            await mutation.mutate({OTP,newPassword,processID})
+            await mutation.mutate({ OTP, newPassword, processID })
         }
-        else{
+        else {
             dispatch(createAlert({
-                message:"New Password and Confirm Password must be same",
-                type:"error"
+                message: "New Password and Confirm Password must be same",
+                type: "error"
             }))
         }
 
@@ -84,16 +84,19 @@ export default function VerifyForgotPasswordOTP() {
                 <h3 className="font-medium  text-center">Enter OTP</h3>
                 <p className="text-center text-green-500 py-1">OTP sent successfully !</p>
                 <form className='flex flex-col space-y-2 py-4'>
-                    <input type="text" className="w-full text-center py-2 outline-none border-1 border-indigo-500 rounded-md" placeholder="Enter 6 digit OTP" required onChange={(e) => setOTP(e.target.value.trim())} />
+                    <div className='flex flex-col space-y-2'>
+                        <label>OTP</label>
+                        <input type="text" className="w-full text-center py-2 outline-none border-1 border-gray-900 rounded-md" placeholder="Enter 6 digit OTP" required onChange={(e) => setOTP(e.target.value.trim())} autoComplete='off' />
+                    </div>
                     <div className='flex flex-col space-y-2'>
                         <label>Set new password</label>
-                        <input className="text-center py-2 outline-none border-1 border-indigo-500 rounded-md" type="password" placeholder='' onChange={(e)=>setNewPassword(e.target.value.trim())} />
+                        <input className="text-center py-2 outline-none border-1 border-gray-900 rounded-md" type="password" placeholder='' onChange={(e) => setNewPassword(e.target.value.trim())} autoComplete='off' />
                     </div>
                     <div className='flex flex-col space-y-2'>
                         <label>Confirm new password</label>
-                        <input className="text-center py-2 outline-none border-1 border-indigo-500 rounded-md" type="password" placeholder='' onChange={(e)=>setConfirmNewPassword(e.target.value.trim())} />
+                        <input className="text-center py-2 outline-none border-1 border-gray-900 rounded-md" type="password" placeholder='' onChange={(e) => setConfirmNewPassword(e.target.value.trim())} autoComplete='off' />
                     </div>
-                    <button type="submit" className="w-full py-2 my-2 bg-indigo-500 text-white font-Roboto rounded-md" onClick={handleVerify}>Verify OTP</button>
+                    <button type="submit" className="w-full py-2 my-2 bg-gray-900 text-white font-Roboto rounded-md" onClick={handleVerify}>Verify OTP</button>
                 </form>
             </div>
         </div>

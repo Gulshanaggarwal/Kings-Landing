@@ -1,18 +1,22 @@
 const express = require("express");
 const router = express.Router();
-const { body, validationResult } = require("express-validator");
 const userModel = require("../Models/user");
 const bcrypt = require("bcrypt");
 const rateLimiter = require("../Middleware/rateLimiter");
+const joi = require("joi");
 
 
-router.post("/", 
+const schema = joi.object({
+
+    oldPassword: joi.string().min(6).max(15)
+})
+
+
+router.post("/",
     rateLimiter,
-    body('oldPassword').not().isEmpty().trim().escape(),
-    body("newPassword").not().isEmpty().trim().escape().isLength({ min: 6, max: 15 }),
     async (req, res) => {
 
-        const { userName, oldPassword, newPassword } = req.body;
+        const { oldPassword, newPassword, token } = req.body;
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({ status: "error", message: "Please enter valid inputs only!" });

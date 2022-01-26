@@ -7,10 +7,13 @@ import Bouncing from '../../Loading/bouncing';
 
 
 const updateInfo = (body) => {
-    return fetch("https://backend-kingslanding.herokuapp.com/getUpdateInfo", {
+
+    const token = localStorage.getItem("__auth__token");
+    return fetch("http://localhost:5000/getUpdateInfo", {
         method: "POST",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "x-access-token": token
         },
         body: JSON.stringify(body)
     }).then((res) => res.json())
