@@ -1,37 +1,55 @@
 const express = require("express");
 const router = express.Router();
-const residencyModel=require("../Models/residencyModel");
+const residencyModel = require("../Models/residencyModel");
+const joi = require("joi");
+const verifyJWT = require("../customFunctions/verifyJwt")
 
-
-
-
-
-router.get("/:location",async(req,res)=>{
-
-
-    const {location}=req.params;
-
-    if(location!=="null"){
-        try{
-            const residencyData=await residencyModel.find({area:location}).exec();
-            res.json({status:"ok",message:"success",data:residencyData})
-        }
-        catch{
-           res.json({status:"error",message:"server error"})
-        }
-    }
-    else{
-        try{
-            let residencyData=await residencyModel.find().exec();
-            res.json({status:"ok",message:"success",data:residencyData})
-        }
-        catch{
-           res.json({status:"error",message:"server error"})
-        }
-        
-    }
-    
+const schema = joi.object({
+    location: joi.string().min(1).max(25),
+    token: joi.string().required()
 })
 
 
-module.exports=router;
+
+
+router.get("/:location", async (req, res) => {
+
+
+    const { location } = req.params;
+    const token = req.headers["x-access-token"];
+
+    console.log(location);
+
+
+    try {
+
+        await schema.validateAsync({ location, token });
+        const user = verifyJWT(token);
+
+        if (user) {
+            if (location !== "null") {
+                const residencyData = await residencyModel.find({ area: location }).exec();
+                res.status(200).json({ status: "ok", message: "success", data: residencyData })
+
+            }
+            else {
+                const residencyData = await residencyModel.find().exec();
+                res.status(200).json({ status: "ok", message: "success", data: residencyData })
+            }
+
+        }
+        else {
+            res.status(401).json({ status: "error", message: "You are not authorised to perform the action!" })
+        }
+
+    } catch (error) {
+
+        res.status(500).json({ status: "error", message: "server error try again!" })
+
+    }
+
+
+})
+
+
+module.exports = router;

@@ -3,7 +3,7 @@ import { hideRegister } from '../../../features/registerSlice'
 import { showLogin } from '../../../features/loginSlice';
 import { useDispatch } from 'react-redux'
 import { useMutation } from "react-query"
-import {showRegisterOTP} from "../../../features/registerOTPSlice"
+import { showRegisterOTP } from "../../../features/registerOTPSlice"
 import { setregisterProcessId } from '../../../features/registerOTPProcessSlice';
 import { createLoaders, destroyLoaders } from '../../../features/loadingSlice';
 import { createAlert } from '../../../features/notificationSlice';
@@ -16,7 +16,7 @@ const register = (body) => {
             "Content-Type": "application/json"
         },
         body: JSON.stringify(body)
-    }).then((res)=>res.json())
+    }).then((res) => res.json())
 }
 
 
@@ -31,20 +31,20 @@ export default function Register() {
     const mutate = useMutation((body) => register(body), {
         onSuccess(data) {
             dispatch(destroyLoaders());
-           const {status,message}=data;
-           if(status==="ok" && data.OTPSent){
-               const {processId}=data;
-            dispatch(setregisterProcessId({processId}));  // set a process Id for registration
-            dispatch(hideRegister());        // hide register window
-            dispatch(showRegisterOTP());     // show verify OTP window for registration
+            const { status, message } = data;
+            if (status === "ok" && data.OTPSent) {
+                const { processId } = data;
+                dispatch(setregisterProcessId({ processId }));  // set a process Id for registration
+                dispatch(hideRegister());        // hide register window
+                dispatch(showRegisterOTP());     // show verify OTP window for registration
 
-           }
-           else{
-            dispatch(createAlert({
-                message: message,
-                type: "error"
-            }))
-           }
+            }
+            else {
+                dispatch(createAlert({
+                    message: message,
+                    type: "error"
+                }))
+            }
         },
         onError(error) {
             dispatch(destroyLoaders());
@@ -81,7 +81,10 @@ export default function Register() {
                     <div className="flex flex-col">
                         <label className="py-2">Set Password</label>
                         <input type="password" className="rounded-md px-2 py-2 bg-indigo-100 outline-none focus:ring-1 focus:ring-gray-900" required onChange={(e) => setPassword(e.target.value.trim())} />
-                        <p className='py-1 text-red-500'>Minimum six characters required</p>
+                        <div>
+                            <p className='py-0.5 text-red-500 text-2lsxs'>Minimum six characters required</p>
+                            <p className='py-0.5 text-red-500 text-2lsxs'>Password can contain only number and alphabets</p>
+                        </div>
                     </div>
                     <button type="submit" className="bg-gray-900 text-gray-50 font-Roboto py-2 rounded-md px-4 my-4" onClick={handleSignup}>Sign up</button>
                 </form>

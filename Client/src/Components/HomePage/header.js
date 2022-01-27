@@ -3,16 +3,18 @@ import { showLogin } from "../../features/loginSlice";
 import { useDispatch } from "react-redux";
 import { showSideNav } from "../../features/sidenavSlice";
 import Logo from "../Logo/logo";
+import { useNavigate } from "react-router-dom";
 
-export default function Header() {
+export default function Header({ data }) {
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   return (
     <main className="bg-main-image bg-no-repeat bg-cover h-screen text-white">
       <header>
         <div className="flex justify-between items-center py-4 px-2">
-          <Logo/>
+          <Logo />
           <div
             className="mx-2 cursor-pointer md:hidden"
             onClick={() => {
@@ -82,7 +84,11 @@ export default function Header() {
         <h3 className="font-medium text-gray-200 text-base text-center px-2 my-4 HomePageAfter330px:text-xl sm:text-3xl sm:my-8">
           Students Comes as Strangers,<br></br>Stay as a Family
         </h3>
-        <button className="px-4 py-2 rounded-xl bg-indigo-500 text-gray-50 font-Roboto" onClick={() => dispatch(showLogin())}>Get Started</button>
+        <button className="px-4 py-2 rounded-xl bg-indigo-500 text-gray-50 font-Roboto" onClick={() => {
+          if (data && data.status === "ok") navigate("/dashboard")
+          else dispatch(showLogin())
+
+        }}>Get Started</button>
       </div>
     </main>
   );

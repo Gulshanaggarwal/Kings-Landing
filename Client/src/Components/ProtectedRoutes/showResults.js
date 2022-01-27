@@ -3,6 +3,10 @@ import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux"
 import rupeeIcon from "../../Images/rupee-indian.png";
 import { showBookingForm } from "../../features/bookingSlice"
+import { Link, useNavigate } from 'react-router-dom';
+import bed from "../../Images/bed.png"
+import locationIcon from "../../Images/location.png"
+import Bouncing from '../Loading/bouncing';
 
 
 export default function ShowResults() {
@@ -11,17 +15,26 @@ export default function ShowResults() {
 
     const dispatch = useDispatch();
     const location = useSelector(state => state.filterBarSlice.location);
+    const navigate = useNavigate();
     let residency = [];
 
 
 
-    const { isLoading, data } = useQuery(["residency", location], () => fetch(`https://backend-kingslanding.herokuapp.com/residencyData/${location}`).then((res) => res.json()), {
+
+    const { isLoading, data, error } = useQuery(["residency", location], () => fetch(`https://backend-kingslanding.herokuapp.com/residencyData/${location}`, {
+
+        headers: {
+            "x-access-token": localStorage.getItem("__auth__token")
+        }
+    }).then((res) => res.json()), {
         refetchOnMount: false
     });
 
 
-    if (isLoading) return <h2>Loading ....</h2>
-    if (data) {
+    if (isLoading) return <Bouncing />
+    if (data && data.status === "error") navigate("/")
+    if (error) navigate("/");
+    if (data && data.status === "ok") {
         residency = [...data.data]
     }
 
@@ -42,7 +55,7 @@ export default function ShowResults() {
             <section className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3'>
                 {residency.length > 0 && residency.map((ele) => {
                     return (
-                        <div className='w-90P mx-auto my-8 border-1 border-gray-600 rounded-md bg-indigo-50 text-2lsxs 271-300px:text-lsxs 301-330px:text-gtxs 331-360px:text-ls1rem' key={ele._id}>
+                        <div onClick={() => navigate(`/residency/${ele._id}`)} className='w-90P mx-auto my-8 border-1 border-gray-600 rounded-md bg-indigo-50 text-2lsxs 271-300px:text-lsxs 301-330px:text-gtxs 331-360px:text-ls1rem' key={ele._id}>
                             <div className="w-full h-40 sm:h-48 md:h-64 2xl:h-72">
                                 <img src={ele.images[0].url} className='w-full h-full rounded-md' alt={ele.images[0].description} />
                             </div>
@@ -63,23 +76,20 @@ export default function ShowResults() {
 
                                 <div className="py-2 flex items-center space-x-1">
 
-                                    <svg className="svg-icon w-4 h-4 block" viewBox="0 0 20 20">
-                                        <path fill="none" d="M10,0.186c-3.427,0-6.204,2.778-6.204,6.204c0,5.471,6.204,6.806,6.204,13.424c0-6.618,6.204-7.953,6.204-13.424C16.204,2.964,13.427,0.186,10,0.186z M10,14.453c-0.66-1.125-1.462-2.076-2.219-2.974C6.36,9.797,5.239,8.469,5.239,6.39C5.239,3.764,7.374,1.63,10,1.63c2.625,0,4.761,2.135,4.761,4.761c0,2.078-1.121,3.407-2.541,5.089C11.462,12.377,10.66,13.328,10,14.453z"></path>
-                                        <circle fill="none" cx="10" cy="5.67" r="1.608"></circle>
-                                    </svg>
+                                    <img src={locationIcon} alt="location" className='w-6 h-6' />
                                     <p>{ele.location}</p>
                                 </div>
 
                                 {
-                                    ele.residencyType.hostel.length > 0 ? <div className='flex items-center my-2'>
-                                        <img src="https://res.cloudinary.com/stanza-living/image/upload/f_auto,q_auto,w_100/v1598893837/Website/bed.png" className="w-4 h-4" />
+                                    ele.residencyType.hostel.length > 0 ? <div className='flex items-center my-2 space-x-1'>
+                                        <img src={bed} alt="bed" className="w-4 h-4" />
                                         {
-                                            ele.residencyType.hostel.map((item, index) => <span key={index} className='px-1'>{item.roomType},</span>)
+                                            ele.residencyType.hostel.map((item, index) => <span key={index} className='px-1 font-bold'>{item.roomType}</span>)
                                         }
-                                    </div> : <div className='flex items-center my-2'>
-                                        <img src="https://res.cloudinary.com/stanza-living/image/upload/f_auto,q_auto,w_100/v1598893837/Website/bed.png" className="w-4 h-4" />
+                                    </div> : <div className='flex items-center my-2 space-x-2'>
+                                        <img src={bed} alt="bed" className="w-4 h-4" />
                                         {
-                                            ele.residencyType.flat.map((item, index) => <span key={index} className='px-1'>{item.roomType},</span>)
+                                            ele.residencyType.flat.map((item, index) => <span key={index} className='px-1 font-bold'>{item.roomType}</span>)
                                         }
                                     </div>
                                 }
@@ -87,7 +97,7 @@ export default function ShowResults() {
                                     <svg xmlns="http://www.w3.org/2000/svg" className='w-4 h-4' viewBox="0 0 24 24"><path d="M3 2h2v20H3zm16 0H6v20h13c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2zm-1 10H9v-2h9v2zm0-4H9V6h9v2z"></path></svg>
                                     <div className='flex flex-wrap'>
                                         {ele.facility.map((item, index) => index < 3 && <span key={index} className='px-1'>{item},</span>)}
-                                        <span>+{ele.facility.length}more...</span>
+                                        <Link to={`/residency/${ele._id}`} className='underline text-blue-500'>+{ele.facility.length}more...</Link>
                                     </div>
                                 </div>
                                 <div className="flex justify-between mt-4">
@@ -98,7 +108,11 @@ export default function ShowResults() {
                                             <span className='px-1 text-xs'>{ele.startingPrice}/month</span>
                                         </div>
                                     </div>
-                                    <button type="button" onClick={() => dispatch(showBookingForm({ data: { residencyId: ele._id, residencyName: ele.name, residencyType: ele.residencyType } }))} className='shadow-2xl rounded-md px-3 h-10  bg-indigo-400 text-xs text-white font-medium'>Book now</button>
+                                    <button type="button" onClick={(e) => {
+                                        e.stopPropagation();
+                                        dispatch(showBookingForm({ data: { residencyId: ele._id, residencyName: ele.name, residencyType: ele.residencyType } }))
+
+                                    }} className='shadow-2xl rounded-md px-3 h-10  bg-indigo-400 text-xs text-white font-medium'>Book now</button>
                                 </div>
                             </div>
                         </div>

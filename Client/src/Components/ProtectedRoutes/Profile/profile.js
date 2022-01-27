@@ -5,25 +5,26 @@ import Footer from '../../Footer/footer'
 import ChangePassword from './changePassword'
 import GeneralInfo from './generalInfo'
 import { useNavigate } from 'react-router-dom'
+import Bouncing from '../../Loading/bouncing'
 
 export default function Profile() {
-    
-    const {isLoading,data,error}=useVerifyJwt();
-    const navigate=useNavigate("");
 
-    if(isLoading) return <p>Loading....</p>
-    if(data && data.status==="error"){
+    const { isLoading, data, error } = useVerifyJwt();
+    const navigate = useNavigate("");
+
+    if (isLoading) return <Bouncing />
+    if (data && data.status === "error") {
         navigate("/");
     }
-    if(error){
+    if (error) {
         navigate("/");
     }
-    return data && data.status==="ok" &&(
+    return data && data.status === "ok" && (
         <div className='bg-gray-100'>
-            <ProtectedPageHeader/>
-            <GeneralInfo fullName={data.user.fullName} userName={data.user.userName}/>
-            <ChangePassword userName={data.user.userName}/>
-            <Footer/>
+            <ProtectedPageHeader />
+            <GeneralInfo fullName={data.user.fullName} userName={data.user.userName} />
+            <ChangePassword userName={data.user.userName} />
+            <Footer />
         </div>
     )
 }
