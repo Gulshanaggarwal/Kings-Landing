@@ -8,7 +8,7 @@ import { createLoaders, destroyLoaders, } from '../../../features/loadingSlice';
 const changePassQuery = (body) => {
 
     const token = localStorage.getItem("__auth__token");
-    return fetch("http://localhost:5000/changePassword", {
+    return fetch("https://backend-kingslanding.herokuapp.com/changePassword", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

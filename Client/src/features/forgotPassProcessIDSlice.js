@@ -1,25 +1,23 @@
-import {createSlice} from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 
-const initialState={
-    forgotPasswordProcessID:null
+const initialState = {
+    forgotPasswordProcessID: null
 }
 
 
-export const forgotPasswordProcessIDSlice=createSlice({
+export const forgotPasswordProcessIDSlice = createSlice({
 
-    name:"forgotPasswordProcessID",
+    name: "forgotPasswordProcessID",
     initialState,
-    reducers:{
-        setForgotPasswordProcessID:(state,action)=>{
-            const {processID}=action.payload;
-            state.forgotPasswordProcessID=processID;
-
-            console.log(state.forgotPasswordProcessID);
+    reducers: {
+        setForgotPasswordProcessID: (state, action) => {
+            const { processID } = action.payload;
+            state.forgotPasswordProcessID = processID;
         }
     }
 
 })
 
 
-export const {setForgotPasswordProcessID}=forgotPasswordProcessIDSlice.actions;
+export const { setForgotPasswordProcessID } = forgotPasswordProcessIDSlice.actions;

@@ -21,7 +21,7 @@ export default function ShowResults() {
 
 
 
-    const { isLoading, data, error } = useQuery(["residency", location], () => fetch(`http://localhost:5000/${location}`, {
+    const { isLoading, data, error } = useQuery(["residency", location], () => fetch(`https://backend-kingslanding.herokuapp.com/residencyData/${location}`, {
 
         headers: {
             "x-access-token": localStorage.getItem("__auth__token")
@@ -34,7 +34,7 @@ export default function ShowResults() {
     if (isLoading) return <Bouncing />
     if (data && data.status === "error") navigate("/")
     if (error) navigate("/");
-    if (data && data.status === "Ok") {
+    if (data && data.status === "ok") {
         residency = [...data.data]
     }
 

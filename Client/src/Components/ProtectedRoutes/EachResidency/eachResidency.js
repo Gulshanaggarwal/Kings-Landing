@@ -33,7 +33,7 @@ export default function EachResidency() {
 
 
 
-    const { isLoading, data, error } = useQuery("eachHostel", () => fetch(`http://localhost:5000/each-residency/${residencyID}`, {
+    const { isLoading, data, error } = useQuery("eachHostel", () => fetch(`https://backend-kingslanding.herokuapp.com/each-residency/${residencyID}`, {
         headers: {
             "x-access-token": localStorage.getItem("__auth__token")
         }
@@ -42,7 +42,7 @@ export default function EachResidency() {
 
     if (isLoading) return <Bouncing />
 
-    if (error || data.status === "error") return <NotFound />
+    if (error || (data && data.status === "error")) return navigate("/")
 
 
     return data && data.status === "ok" && <div>

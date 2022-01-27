@@ -3,15 +3,15 @@ const trackResetOTP = require("../Models/trackResetOTP");
 const userModel = require("../Models/user");
 const router = express.Router();
 const bcrypt = require("bcrypt");
-const {body,validationResult}=require("express-validator")
+const { body, validationResult } = require("express-validator")
 
 
 
 router.post("/",
     body('OTP').not().isEmpty().trim().escape().isLength({ min: 6, max: 6 }),
-    body("newPassword").not().isEmpty().escape().isLength({ min: 6, max: 15 }),
+    body("newPassword").not().isEmpty().escape().isLength({ min: 6, max: 15 }).matches(new RegExp('^[a-zA-Z0-9]{6,15}$')),
     body("processID").not().isEmpty().trim().escape().isLength({ min: 24, max: 24 }),
-    async(req, res) => {
+    async (req, res) => {
 
 
         const errors = validationResult(req);
@@ -23,7 +23,7 @@ router.post("/",
 
         try {
 
-            const { userName, resetOTP } =await trackResetOTP.findOne({ _id: processID }).exec();
+            const { userName, resetOTP } = await trackResetOTP.findOne({ _id: processID }).exec();
 
             if (resetOTP === OTP) {
                 const saltRounds = 10;
@@ -32,8 +32,8 @@ router.post("/",
                 res.status(200).json({ status: "ok", message: "Password is successfully reset, you can Login now" })
 
             }
-            else{
-                res.status(400).json({status:"error",message:"Enter a Valid OTP!"})
+            else {
+                res.status(400).json({ status: "error", message: "Enter a Valid OTP!" })
             }
 
 

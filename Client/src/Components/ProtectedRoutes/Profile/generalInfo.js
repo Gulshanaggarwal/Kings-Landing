@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom"
 const updateInfo = (body) => {
 
     const token = localStorage.getItem("__auth__token");
-    return fetch("http://localhost:5000/getUpdateInfo", {
+    return fetch("https://backend-kingslanding.herokuapp.com/getUpdateInfo", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

@@ -8,7 +8,7 @@ import { hideForgotPasswordOTPPage } from '../../features/verifyForgotPasswordOT
 
 
 const verifyPassword = (body) => {
-    return fetch("http://localhost:5000/verify-forgot-password", {
+    return fetch("https://backend-kingslanding.herokuapp.com/verify-forgot-password", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -24,8 +24,6 @@ export default function VerifyForgotPasswordOTP() {
     const [newPassword, setNewPassword] = useState("");
     const [confirmNewPassword, setConfirmNewPassword] = useState("");
     const processID = useSelector((state) => state.forgotPasswordProcessID.forgotPasswordProcessID);
-
-    console.log("pid", processID);
 
     const dispatch = useDispatch();
 
@@ -91,6 +89,10 @@ export default function VerifyForgotPasswordOTP() {
                     <div className='flex flex-col space-y-2'>
                         <label>Set new password</label>
                         <input className="text-center py-2 outline-none border-1 border-gray-900 rounded-md" type="password" placeholder='' onChange={(e) => setNewPassword(e.target.value.trim())} autoComplete='off' />
+                        <div>
+                            <p className='py-0.5 text-red-500 text-2lsxs'>Minimum six characters required</p>
+                            <p className='py-0.5 text-red-500 text-2lsxs'>Password can contain only number and alphabets</p>
+                        </div>
                     </div>
                     <div className='flex flex-col space-y-2'>
                         <label>Confirm new password</label>

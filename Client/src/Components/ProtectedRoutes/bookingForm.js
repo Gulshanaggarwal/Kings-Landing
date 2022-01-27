@@ -10,7 +10,7 @@ import { createLoaders, destroyLoaders } from '../../features/loadingSlice';
 const bookRequest = (body) => {
 
     const token = localStorage.getItem("__auth__token");
-    return fetch("http://localhost:5000/book-request", {
+    return fetch("https://backend-kingslanding.herokuapp.com/book-request", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
