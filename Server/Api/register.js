@@ -35,7 +35,7 @@ router.post("/",
                 const mailOptions = {
                     from: process.env.COMPANY_EMAIL,
                     to: userName,
-                    subject: "REGISTER OTP",
+                    subject: "REGISTER OTP | Kings Landing",
                     html: `OTP for Registration ${randOTP}`
                 }
 

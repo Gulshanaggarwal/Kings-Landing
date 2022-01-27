@@ -38,7 +38,6 @@ app.use(bodyParser.json());             // parse the body
 
 const whiteList = [
   "https://www.kingslandingindia.in",
-  "http://localhost:3000"
 ]
 
 const corsOptionsDelegate = function (req, callback) {
