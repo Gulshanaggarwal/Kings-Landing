@@ -62,7 +62,7 @@ export default function GeneralInfo({ fullName, userName }) {
         }
     });
 
-    const { isLoading, data } = useQuery("findProfileData", () => fetch(`https://backend-kingslanding.herokuapp.com/getUpdateInfo/${userName}`, {
+    const { isLoading, data } = useQuery("findProfileData", () => fetch(`https://backend-kingslanding.herokuapp.com/getUpdateInfo`, {
         headers: {
             "x-access-token": localStorage.getItem("__auth__token")
         }

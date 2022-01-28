@@ -5,11 +5,12 @@ const userModel = require("../Models/user");
 const randomOTP = require("../customFunctions/randomOTP");
 const transporter = require("../customFunctions/mailTransporter");
 const trackResetOTP = require("../Models/trackResetOTP");
-
+const rateLimiter = require("../Middleware/rateLimiter");
 
 
 router.post("/",
     body('userName').isEmail().normalizeEmail(),
+    rateLimiter,
     async (req, res) => {
 
         const errors = validationResult(req);

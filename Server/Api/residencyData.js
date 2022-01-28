@@ -18,8 +18,6 @@ router.get("/:location", async (req, res) => {
     const { location } = req.params;
     const token = req.headers["x-access-token"];
 
-    console.log(location);
-
 
     try {
 
