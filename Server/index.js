@@ -73,6 +73,9 @@ app.use("/book-request", bookingRequest);
 app.use("/forgot-password", forgotPassword);
 app.use("/verify-forgot-password", verifyForgotPassword)
 app.use("/each-residency", findEachResidency);
+app.use((req, res) => {
+  res.status(404).json({ status: "error", message: "404 Not Found!" })
+})
 
 
 

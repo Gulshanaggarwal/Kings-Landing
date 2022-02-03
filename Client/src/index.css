@@ -1,37 +1,28 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Ravi+Prakash&family=Roboto:wght@300&family=Spirax&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Dosis&family=Roboto:wght@300&family=Spirax&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap");
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
-.custom-scrollbar::-webkit-scrollbar{
-    width: 5px;
-    height: 5px;
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
 }
-.custom-scrollbar::-webkit-scrollbar-track{
-    
-    border-radius: 10px;
+.custom-scrollbar::-webkit-scrollbar-track {
+  border-radius: 10px;
 }
-.custom-scrollbar::-webkit-scrollbar-thumb{
-    background-color: #6366F1;
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #6366f1;
 }
 /* -----
 SVG Icons - svgicons.sparkk.fr
 ----- */
 
+.svg-icon path,
+.svg-icon polygon,
+.svg-icon rect {
+  fill: black;
+}
 
-  
-  .svg-icon path,
-  .svg-icon polygon,
-  .svg-icon rect {
-    fill: black;
-  }
-  
-  .svg-icon circle {
-    stroke: black;
-    stroke-width: 1;
-  }
+.svg-icon circle {
+  stroke: black;
+  stroke-width: 1;
+}
