@@ -7,3 +7,5 @@
 
 #Server env
 /Server/.env
+# Local Netlify folder
+.netlify
